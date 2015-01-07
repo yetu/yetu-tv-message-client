@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="cache-control" content="max-age=0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+        <meta http-equiv="pragma" content="no-cache" />
+
+        <title>yetu TV message client example page</title>
+
+        <!--flyer.js -->
+        <script src="../bower_components/flyer/index.js"></script>
+        <!--demonstration JS-->
+        <script src="index.js"></script>
+
+        <link rel="stylesheet" href="styles/all.css">
+    </head>
+    <body>
+        <div class="iframe-changebox" id="up" onclick="myMultiClickHandler('up');">
+            <h1>Up</h1>
+        </div>
+        <div class="iframe-changebox" id="down" onclick="myMultiClickHandler('down');">
+            <h1>Down</h1>
+        </div>
+        <div class="iframe-changebox" id="left" onclick="myMultiClickHandler('left');">
+            <h1>Left</h1>
+        </div>
+        <div class="iframe-changebox" id="right" onclick="myMultiClickHandler('right');">
+            <h1>Right</h1>
+        </div>
+        <div class="iframe-changebox" id="enter" onclick="myMultiClickHandler('enter');">
+            <h1>Enter</h1>
+        </div>
+        <div class="iframe-changebox" id="back" onclick="myMultiClickHandler('back');">
+            <h1>Back</h1>
+        </div>
+				<div class="iframe-changebox" id="menu" onclick="myMultiClickHandler('menu');">
+            <h1>Menu</h1>
+        </div>
+        <div class="iframe-changebox" id="play" onclick="myMultiClickHandler('play');">
+            <h1>Play</h1>
+        </div>
+        <div class="iframe-changebox" id="rewind" onclick="myMultiClickHandler('rewind');">
+            <h1>Rewind</h1>
+        </div>
+        <div class="iframe-changebox" id="forward" onclick="myMultiClickHandler('forward');">
+            <h1>Forward</h1>
+        </div>
+        <iframe id="first-frame" src="iframe.html"></iframe>
+    </body>
+</html>

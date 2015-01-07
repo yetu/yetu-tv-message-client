@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="cache-control" content="max-age=0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+        <meta http-equiv="pragma" content="no-cache" />
+
+        <title>3rd party app inside an iframe</title>
+
+        <!--yetu library -->
+        <script src="../dist/yetu-tv-message-client-min.js"></script>
+
+        <!--3rd party custom JS-->
+        <script src="iframe.js"></script>
+
+        <link rel="stylesheet" href="styles/all.css">
+    </head>
+    <body>
+        <div id="iframe-cover-overlay">
+            <div class="locktext">Locked</div>
+        </div>
+        <div class="iframe-changebox" id="up">
+            <h1>Up</h1>
+        </div>
+        <div class="iframe-changebox" id="down">
+            <h1>Down</h1>
+        </div>
+        <div class="iframe-changebox" id="left">
+            <h1>Left</h1>
+        </div>
+        <div class="iframe-changebox" id="right">
+            <h1>Right</h1>
+        </div>
+        <div class="iframe-changebox" id="enter">
+            <h1>Enter</h1>
+        </div>
+        <div class="iframe-changebox" id="back">
+            <h1>Back</h1>
+        </div>
+				<div class="iframe-changebox" id="menu">
+            <h1>Menu</h1>
+        </div>
+        <div class="iframe-changebox" id="play">
+            <h1>Play</h1>
+        </div>
+        <div class="iframe-changebox" id="rewind">
+            <h1>Rewind</h1>
+        </div>
+        <div class="iframe-changebox" id="forward">
+            <h1>Forward</h1>
+        </div>
+        <div class="iframe-changebox" id="quit" onclick="myQuitSender();">
+            <h1>Send Quit</h1>
+        </div>
+        <div class="iframe-messagebox">
+            <textarea placeholder="enter a custom message here"></textarea>
+            <button onclick="myMessageSender();">Submit message to yetu TV experience</button>
+        </div>
+				<div class="iframe-changebox" id="index" onclick="myIndexSender();">
+            <h1>Send Index</h1>
+						<h1 id="index-value">0</h1>
+        </div>
+    </body>
+</html>
