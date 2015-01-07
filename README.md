@@ -20,7 +20,7 @@ This project contains the yetu-tv-message-client. The code is written as native 
 
 ## use the library as a third-party-application developer
 
-[Here](https://bitbucket.org/yetu/yetu-tv-message-client/src/275ac700464b70396333f5eb84616add5565cb88/3rd-Party-Documentation.md?at=develop) you can find the guide how you can use the library.
+[Here](https://github.com/yetu/yetu-tv-message-client/blob/master/3rd-Party-Documentation.md) you can find the guide how you can use the library.
 
 ## be a developer of our library
 
