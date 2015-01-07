@@ -1,6 +1,6 @@
 {
   "name": "yetu-tv-message-client",
-  "version": "0.0.1",
+  "version": "1.0",
   "license": "MIT",
 	"main": "dist/yetu-tv-message-client-min.js",
   "ignore": [
