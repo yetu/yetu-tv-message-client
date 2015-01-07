@@ -94,7 +94,7 @@ These are all actions the yetu remote control currently can produce except:
 
 * The home button, which is supposed to reload the whole homescreen.
 
-![RemoteControl](http://bitbucket.org/yetu/yetu-tv-message-client/raw/develop/yetu_remote.png)
+![RemoteControl](https://github.com/yetu/yetu-tv-message-client/blob/master/yetu_remote.png)
 
 ###Operations
 
