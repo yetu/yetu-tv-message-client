@@ -14,7 +14,9 @@ var constants = {
     messageTopic: 'message.to.yetu'
 };
 
-var sendData = function(topic, data){
+var local = {};
+
+local.sendData = function(topic, data){
     try{
         flyer.wrapper.broadcast({
             channel: 'yetu',
@@ -39,26 +41,26 @@ var sendData = function(topic, data){
 };
 
 yetu.sendMessage = function(message){
-    return sendData(constants.messageTopic,  message || '');
+    return local.sendData(constants.messageTopic,  message || '');
 };
 
 yetu.sendFeedItemIndex = function(index){
-    return sendData(constants.indexTopic, {
+    return local.sendData(constants.indexTopic, {
         index : index || 0
     });
 };
 
 yetu.sendQuit = function(message){
-    return sendData(constants.quitTopic, message || '')
+    return local.sendData(constants.quitTopic, message || '')
 };
 
-var isReady = function(){
-    return sendData(constants.isReadyTopic, '');
+local.isReady = function(){
+    return local.sendData(constants.isReadyTopic, '');
 };
 
 window.addEventListener('load', function(){
-	if(yetu && isReady && typeof(isReady) === 'function') {
-      isReady();
+	if(yetu && local.isReady && typeof(local.isReady) === 'function') {
+      local.isReady();
 	}
 }, false);
 

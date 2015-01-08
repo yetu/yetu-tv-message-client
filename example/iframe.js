@@ -68,7 +68,9 @@ yetu.onAnyActionDetected = function(){
 
     yetu.onAnyActionDetected = function(){};
 
-    document.getElementById('iframe-cover-overlay').remove();
+		if(document.getElementById('iframe-cover-overlay')!==null){
+      document.getElementById('iframe-cover-overlay').remove();
+		}
 
     yetu.onActionUp = myUpHandler;
     yetu.onActionDown = myDownHandler;

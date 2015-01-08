@@ -3,7 +3,28 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
 		comb = new(require('csscomb')),
-    connect = require('gulp-connect');
+    connect = require('gulp-connect'),
+    karma = require('gulp-karma');
+
+var testFiles = [
+  'bower_components/flyer/index.js',
+  'scripts/*.js',
+  'example/*.js',
+  'test/*.js'
+];
+
+gulp.task('test', function() {
+  // Be sure to return the stream
+  return gulp.src(testFiles)
+    .pipe(karma({
+      configFile: 'karma.conf.js',
+      action: 'run'
+    }))
+    .on('error', function(err) {
+      // Make sure failed tests cause gulp to exit non-zero
+      throw err;
+    });
+});
 
 gulp.task('combine', function() {
   gulp.src(['./bower_components/flyer/index.js', './scripts/yetu-tv-message-client.js'])
@@ -24,4 +45,4 @@ gulp.task('csscomb', function() {
 });
 
 gulp.task('run', ['connect']);
-gulp.task('build', ['combine', 'csscomb']);
+gulp.task('build', ['combine', 'csscomb', 'test']);

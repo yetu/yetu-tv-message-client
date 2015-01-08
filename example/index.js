@@ -6,6 +6,7 @@ flyer.wrapper.subscribe({
     topic: 'message.to.yetu',
     callback: function(data, topic, channel) {
         alert("the app: '" + data.title + "' has sent you: '" + data.message + "'");
+
     }
 });
 
@@ -42,3 +43,4 @@ var myMultiClickHandler = function(key){
       data: {}
     });
 };
+
