@@ -4,19 +4,20 @@
  * @license MIT
  */
 
-//namespace of our app
+//(public)namespace of our app
 var yetu = yetu || {};
 
-var constants = {
+//(private)namespace of our app
+var _yetu = _yetu || {};
+
+_yetu.constants = {
     quitTopic: 'control.quit',
     isReadyTopic: 'action.is.ready',
     indexTopic: 'control.index',
     messageTopic: 'message.to.yetu'
 };
 
-var local = {};
-
-local.sendData = function(topic, data){
+_yetu.sendData = function(topic, data){
     try{
         flyer.wrapper.broadcast({
             channel: 'yetu',
@@ -41,26 +42,26 @@ local.sendData = function(topic, data){
 };
 
 yetu.sendMessage = function(message){
-    return local.sendData(constants.messageTopic,  message || '');
+    return _yetu.sendData(_yetu.constants.messageTopic,  message || '');
 };
 
 yetu.sendFeedItemIndex = function(index){
-    return local.sendData(constants.indexTopic, {
+    return _yetu.sendData(_yetu.constants.indexTopic, {
         index : index || 0
     });
 };
 
 yetu.sendQuit = function(message){
-    return local.sendData(constants.quitTopic, message || '')
+    return _yetu.sendData(_yetu.constants.quitTopic, message || '')
 };
 
-local.isReady = function(){
-    return local.sendData(constants.isReadyTopic, '');
+_yetu.isReady = function(){
+    return _yetu.sendData(_yetu.constants.isReadyTopic, '');
 };
 
 window.addEventListener('load', function(){
-	if(yetu && local.isReady && typeof(local.isReady) === 'function') {
-      local.isReady();
+	if(_yetu && _yetu.isReady && typeof(_yetu.isReady) === 'function') {
+      _yetu.isReady();
 	}
 }, false);
 
