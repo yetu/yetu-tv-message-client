@@ -2,14 +2,17 @@
  * Author Matthias Heyder
  */
 
-var appID;
+var appIDs = [];
+var activeID;
 
 flyer.wrapper.subscribe({
     channel: 'yetu',
     topic: 'action.is.ready.*',
     callback: function(data, topic, channel) {
-				appID = topic.substr(topic.indexOf('#'));
-				alert("the app: '" + data.title + "' identified as '" + appID + "' is ready for use and sent you: '" + data.message + "'");
+				var ID = topic.substr(topic.indexOf('#'));
+				appIDs.push(ID);
+				activeID = ID;
+				alert("the app: '" + data.title + "' identified as '" + appIDs + "' is ready for use and sent you: '" + data.message + "'");
 				executeSubscribers();
     }
 });
@@ -18,7 +21,7 @@ var executeSubscribers = function(){
 
 	flyer.wrapper.subscribe({
 			channel: 'yetu',
-			topic: 'message.to.yetu.' + appID,
+			topic: 'message.to.yetu.' + activeID,
 			callback: function(data, topic, channel) {
 					alert("the app: '" + data.title + "' has sent you: '" + data.message + "'");
 			}
@@ -26,7 +29,7 @@ var executeSubscribers = function(){
 
 	flyer.wrapper.subscribe({
 			channel: 'yetu',
-			topic: 'control.quit.' + appID,
+			topic: 'control.quit.' + activeID,
 			callback: function(data, topic, channel) {
 					alert("the app: '" + data.title + "' has just sent you a 'quit' signal");
 			}
@@ -34,7 +37,7 @@ var executeSubscribers = function(){
 
 	flyer.wrapper.subscribe({
 			channel: 'yetu',
-			topic: 'control.index.' + appID,
+			topic: 'control.index.' + activeID,
 			callback: function(data, topic, channel) {
 					alert("the app: '" + data.title + "' has just sent you the 'index' number " + data.message.index);
 			}
@@ -46,7 +49,12 @@ var myMultiClickHandler = function(key){
 
     flyer.wrapper.broadcast({
       channel: 'yetu',
-      topic: 'control.'+ key + '.' + appID,
+      topic: 'control.'+ key + '.' + activeID,
       data: {}
     });
+};
+
+var toggle = function(){
+	//TODO: make this function more readable
+	activeID = appIDs[+!appIDs.indexOf(activeID)];
 };

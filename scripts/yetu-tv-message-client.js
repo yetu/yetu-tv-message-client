@@ -1,6 +1,6 @@
 /**
  * @author Matthias Heyder, Elisa Hilprecht
- * @version 0.3.0
+ * @version 1.1
  * @license MIT
  */
 

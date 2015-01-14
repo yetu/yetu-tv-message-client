@@ -12,6 +12,20 @@
     user-select: none;
 }
 
+.iframe-changebox-big{
+		width: 298px;
+    height: 148px;
+    border: 1px solid;
+    background-color: white;
+    position: absolute;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .iframe-messagebox{
     width: 500px;
     top: 550px;
@@ -71,6 +85,15 @@
     height: 900px;
 }
 
+#second-frame{
+    overflow: hidden;
+    position: absolute;
+    left: 0px;
+    top: 750px;
+    width: 800px;
+    height: 900px;
+}
+
 h1{
     text-align: center;
 }
@@ -122,4 +145,8 @@ h1{
 #index{
     top: 700px;
 		left: 550px;
+}
+#toggle{
+		top: 525px;
+		left: 625px;
 }
