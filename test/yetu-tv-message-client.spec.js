@@ -5,9 +5,14 @@ describe('message-client', function () {
 		yetu.onAnyActionDetected();
 	});
 
-	it('should exist', function () {
+	it('public namespace should exist', function () {
 		expect(yetu).toBeDefined();
 	});
+
+	it('private namespace should exist', function () {
+		expect(_yetu).toBeDefined();
+	});
+
 	it('should have all method', function () {
 		expect(yetu.onAnyActionDetected).toBeDefined();
 		expect(yetu.onActionBack).toBeDefined();
@@ -26,30 +31,30 @@ describe('message-client', function () {
 	});
 
 	it('should send Message', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
+		expect(_yetu.sendData).toBeDefined();
+		spyOn(_yetu,'sendData');
 		yetu.sendMessage('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.messageTopic,'Test');
+		expect(_yetu.sendData).toHaveBeenCalledWith(_yetu.constants.messageTopic,'Test');
 	});
 
 	it('should send Quit', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
+		expect(_yetu.sendData).toBeDefined();
+		spyOn(_yetu,'sendData');
 		yetu.sendQuit('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.quitTopic,'Test');
+		expect(_yetu.sendData).toHaveBeenCalledWith(_yetu.constants.quitTopic,'Test');
 	});
 
 	it('should send Index', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
+		expect(_yetu.sendData).toBeDefined();
+		spyOn(_yetu,'sendData');
 		yetu.sendFeedItemIndex(1);
-		expect(local.sendData).toHaveBeenCalledWith(constants.indexTopic,{index:1});
+		expect(_yetu.sendData).toHaveBeenCalledWith(_yetu.constants.indexTopic,{index:1});
 	});
 
 	it('should broadcast message', function () {
 		expect(flyer.wrapper.broadcast).toBeDefined();
 		spyOn(flyer.wrapper,'broadcast');
-		local.sendData(constants.messageTopic, 'Test');
+		_yetu.sendData(_yetu.constants.messageTopic, 'Test');
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
 	});
 });
