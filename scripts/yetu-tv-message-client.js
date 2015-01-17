@@ -194,7 +194,7 @@
 	// the ready private function to broadcast the 
 	// message to the channel
 	root.addEventListener('load', function() {
-		if(yetu) {
+		if(_yetu) {
 			ready();
 		}
 	}, false);

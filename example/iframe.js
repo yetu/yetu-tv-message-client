@@ -1,6 +1,3 @@
-/**
- @author Matthias Heyder, Elisa Hilprecht
-
 var changeBoxColor = function(boxNumber){
 	document.getElementsByClassName('iframe-changebox')[boxNumber].style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
 };
@@ -90,4 +87,3 @@ window.onload = function(){
         e.stopPropagation();
     };
 };
-*/
