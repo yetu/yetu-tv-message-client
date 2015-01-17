@@ -113,7 +113,7 @@
 	};
 
 	_yetu.any = function(callback) {
-		_yetu.any = callback;
+		any = callback;
 	};
 
 	// Push to the handlers the current action and callback if the 
@@ -135,13 +135,13 @@
 
 	// Remove all callbacks including the one for any actions
 	_yetu.clear = function() {
-		_yetu.any = null;
+		any = null;
 		_yetu.handlers = [];
 	};
 
 	// indexOf based on the browser implementation ECMA5
 	// focused on find the action at the `handlers` object
-	_yetu.prototype.indexOf = function(action, start) {
+	_yetu.indexOf = function(action, start) {
 		for (var i = (start || 0), j = handlers.length; i < j; i++) {
 			if (handlers[i].action === action) { return i; }
 		}
@@ -176,8 +176,8 @@
 			if(topic !== _yetu.QUIT_TOPIC) {
 
 				// if has a callback to any action call it
-				if (_yetu.any && typeof _yetu.any == 'function') {
-					_yetu.any();
+				if (any && typeof any == 'function') {
+					any();
 				}
 
 				// check if the `handlers` object has a handler to the topic

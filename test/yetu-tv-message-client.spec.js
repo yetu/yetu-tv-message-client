@@ -9,10 +9,6 @@ describe('message-client', function () {
 		expect(_yetu).toBeDefined();
 	});
 	
-	it('should not handle any action at start', function () {
-		expect(_yetu.any).toBeNull();
-	});
-
 	it('should not have handlers at start', function () {
 		expect(_yetu.size()).toEqual(0);
 	});

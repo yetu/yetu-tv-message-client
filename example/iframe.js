@@ -26,7 +26,7 @@ var myRightHandler = function(){
 	changeBoxColor(3);
 };
 var myEnterHandler = function(){
-	changeBoxColor(4)
+	changeBoxColor(4);
 };
 var myBackHandler = function(){
 	changeBoxColor(5);
@@ -50,36 +50,36 @@ var myMessageSender = function(){
     document.getElementsByTagName("textarea")[0].placeholder = "Your message: '" + text + "' has been sent to yetu.";
     document.getElementsByTagName("textarea")[0].value = "";
 
-	yetu.sendMessage(text);
+	_yetu.message(text);
 };
 
 var myQuitSender = function(){
-    yetu.sendQuit();
+    _yetu.quit();
 };
 
 var myIndexSender = function(){
-    yetu.sendFeedItemIndex(+document.getElementById('index-value').innerHTML);
+    _yetu.index(+document.getElementById('index-value').innerHTML);
 };
 
-yetu.onAnyActionDetected = function(){
+_yetu.any(function() {
 
-    yetu.onAnyActionDetected = function(){};
+	_yetu.any(null);
 
-		if(document.getElementById('iframe-cover-overlay')!==null){
-      document.getElementById('iframe-cover-overlay').remove();
-		}
+	if(document.getElementById('iframe-cover-overlay')!==null) {
+		document.getElementById('iframe-cover-overlay').remove();
+	}
 
-    yetu.onActionUp = myUpHandler;
-    yetu.onActionDown = myDownHandler;
-    yetu.onActionLeft = myLeftHandler;
-    yetu.onActionRight = myRightHandler;
-    yetu.onActionEnter = myEnterHandler;
-    yetu.onActionBack = myBackHandler;
-		yetu.onActionMenu = myMenuHandler;
-    yetu.onActionPlay = myPlayHandler;
-    yetu.onActionRewind = myRewindHandler;
-    yetu.onActionForward = myForwardHandler;
-};
+	_yetu.on(_yetu.KEY.UP, myUpHandler);
+	_yetu.on(_yetu.KEY.DOWN, myDownHandler);
+	_yetu.on(_yetu.KEY.LEFT, myLeftHandler);
+	_yetu.on(_yetu.KEY.RIGHT, myRightHandler);
+	_yetu.on(_yetu.KEY.ENTER, myEnterHandler);
+	_yetu.on(_yetu.KEY.BACK, myBackHandler);
+	_yetu.on(_yetu.KEY.MENU, myMenuHandler);
+	_yetu.on(_yetu.KEY.PLAY, myPlayHandler);
+	_yetu.on(_yetu.KEY.REWIND, myRewindHandler);
+	_yetu.on(_yetu.KEY.FORWARD, myForwardHandler);
+});
 
 window.onload = function(){
 
