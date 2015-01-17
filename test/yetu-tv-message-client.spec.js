@@ -1,55 +1,48 @@
 describe('message-client', function () {
 
 	beforeEach(function(){
-		//enable action handler
-		yetu.onAnyActionDetected();
+		// clear action handlers
+		_yetu.clear();
 	});
 
 	it('should exist', function () {
-		expect(yetu).toBeDefined();
+		expect(_yetu).toBeDefined();
 	});
-	it('should have all method', function () {
-		expect(yetu.onAnyActionDetected).toBeDefined();
-		expect(yetu.onActionBack).toBeDefined();
-		expect(yetu.onActionUp).toBeDefined();
-		expect(yetu.onActionDown).toBeDefined();
-		expect(yetu.onActionLeft).toBeDefined();
-		expect(yetu.onActionRight).toBeDefined();
-		expect(yetu.onActionForward).toBeDefined();
-		expect(yetu.onActionPlay).toBeDefined();
-		expect(yetu.onActionEnter).toBeDefined();
-		expect(yetu.onActionMenu).toBeDefined();
-		expect(yetu.onActionRewind).toBeDefined();
-		expect(yetu.sendFeedItemIndex).toBeDefined();
-		expect(yetu.sendMessage).toBeDefined();
-		expect(yetu.sendQuit).toBeDefined();
+	
+	it('should not handle any action at start', function () {
+		expect(_yetu.any).toBeNull();
+	});
+
+	it('should not have handlers at start', function () {
+		expect(_yetu.size()).toEqual(0);
 	});
 
 	it('should send Message', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendMessage('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.messageTopic,'Test');
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.message('Test');
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.MESSAGE_TOPIC);
 	});
 
 	it('should send Quit', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendQuit('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.quitTopic,'Test');
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.quit('Test');
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.QUIT_TOPIC);
 	});
 
 	it('should send Index', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendFeedItemIndex(1);
-		expect(local.sendData).toHaveBeenCalledWith(constants.indexTopic,{index:1});
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.index(1);
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.INDEX_TOPIC);
 	});
 
 	it('should broadcast message', function () {
 		expect(flyer.wrapper.broadcast).toBeDefined();
 		spyOn(flyer.wrapper,'broadcast');
-		local.sendData(constants.messageTopic, 'Test');
+		_yetu.message('Test');
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].data.message).toEqual('Test');
 	});
 });
