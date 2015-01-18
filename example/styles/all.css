@@ -66,43 +66,20 @@ table {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.iframe-messagebox, .iframe-feed-index {
-    width: 234px;
-    top: 40px;
-    background-color: white;
+.sample-frame {
+    overflow: hidden;
     position: absolute;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    left: 42%;
+    left: 332px;
+    top: 50%;
+    width: 530px;
+    height: 600px;
+    margin-top: -300px;
+    background: rgba(0,0,0,0.02);
 }
 
-.iframe-messagebox > textarea {
-    width: 100%;
-    height: 43px;
-    font-size: 13px;
-}
-
-.iframe-messagebox > button{
-    width: 100px;
-    display: block;
-    margin: 10px auto;
-}
-
-.iframe-feed-index {
-    top: 162px;
-    text-align: center;
-}
-
-.iframe-feed-index span {
-    font-size: 14px;
-}
-
-.iframe-feed-index span#index-value {
-    font-weight: bold;
+.sample-frame.second-frame {
+    left: 984px;
+    background: rgba(250,0,0,0.02);
 }
 
 #iframe-cover-overlay {
@@ -132,14 +109,48 @@ table {
 
 }
 
-#first-frame{
-    overflow: hidden;
+.iframe-messagebox, .iframe-feed-index {
+    width: 234px;
+    top: 40px;
     position: absolute;
-    left: 332px;
-    top: 50%;
-    width: 600px;
-    height: 600px;
-    margin-top: -300px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    left: 258px;
+}
+
+.iframe-messagebox > textarea {
+    width: 100%;
+    height: 43px;
+    font-size: 13px;
+}
+
+.iframe-messagebox > button{
+    width: 100px;
+    display: block;
+    margin: 10px auto;
+}
+
+.iframe-feed-index {
+    top: 162px;
+    text-align: center;
+}
+
+.iframe-feed-index span {
+    font-size: 14px;
+}
+
+.iframe-feed-index span#index-value {
+    font-weight: bold;
+}
+
+.uuid {
+    text-align: center;
+    padding-top: 3px;
+    font-size: 11px;
 }
 
 #send-quit {

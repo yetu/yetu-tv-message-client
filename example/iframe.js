@@ -58,6 +58,8 @@ _yetu.any(function() {
 
 	_yetu.any(null);
 
+	$('.uuid').text(_yetu.id());
+
 	if(typeof $('#iframe-cover-overlay').length !== 'undefined') {
 		$('#iframe-cover-overlay').remove();
 	}
