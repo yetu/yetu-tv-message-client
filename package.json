@@ -22,6 +22,7 @@
     "karma-phantomjs-launcher": "~0.1.2",
     "karma-requirejs": "~0.2.1",
     "karma-script-launcher": "~0.1.0",
+    "gulp-docco": "*",
     "marked-toc": "^0.3.0"
   },
   "devDependencies": {

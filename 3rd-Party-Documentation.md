@@ -48,7 +48,12 @@ application at the homescreen.
         console.log("yetu TV message received!");
     });
 ```
-    
+
+* Clear all handlers, for example:
+``` 
+    _yetu.clear();
+```
+
 * You can also use the two methods to send messages to the yetu homescreen. If you send a plain message, inform the developers of the yetu homescreen to handle the messages. 
 
 In the example folder you can find an example, how the communication between the iFrame with your application and the 
@@ -72,7 +77,7 @@ Modify the the following call and execute it directly in the JS context or brows
 ```
     flyer.wrapper.broadcast({
       channel: 'yetu',
-      topic: 'control.left',//change this to your needs, i.e. 'control.right' or 'control.menu' etc.
+      topic: 'control.left.{UUID}', // you will need to handle the UUID bahavior... change this to your needs, i.e. 'control.right' or 'control.menu' etc.
       data: {}
     });
 ```

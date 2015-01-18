@@ -4,7 +4,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
 		comb = new(require('csscomb')),
     connect = require('gulp-connect'),
-    karma = require('gulp-karma');
+    karma = require('gulp-karma'),
+    docco = require("gulp-docco");
 
 var testFiles = [
   'bower_components/flyer/index.js',
@@ -13,6 +14,14 @@ var testFiles = [
   'example/*.js',
   'test/*.js'
 ];
+
+gulp.task('docs', function() {
+
+  gulp.src('./scripts/yetu-tv-message-client.js')
+    .pipe(docco())
+    .pipe(gulp.dest('./docs'));
+
+});
 
 gulp.task('test', function() {
   // Be sure to return the stream
@@ -46,4 +55,4 @@ gulp.task('csscomb', function() {
 });
 
 gulp.task('run', ['connect']);
-gulp.task('build', ['combine', 'csscomb', 'test']);
+gulp.task('build', ['combine', 'csscomb', 'test', 'docs']);

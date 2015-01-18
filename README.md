@@ -44,9 +44,13 @@ you need to have the following installed on your system:
 * gulp
 	* check you have it by entering `which gulp` into a terminal
 	* if you don't have it, enter `sudo npm install -g  gulp` into your terminal
+* docco
+	* check you have it by entering `which docco` into a terminal
+	* if you don't have it, enter `sudo npm install -g  docco` into your terminal
 	
 More information about bower you can find [here](http://bower.io/).  
 More information about gulp you can find [here](http://gulpjs.com/).
+More information about docco you can find [here](http://jashkenas.github.io/docco/).
 
 ### initialise your project
 
