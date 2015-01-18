@@ -1,4 +1,4 @@
-//     yetu-tv-message-client.js 0.2.1
+//     yetu-tv-message-client.js 1.1.0
 //     https://github.com/yetu/yetu-tv-message-client
 //     (c) 2015 Yetu AG
 //     Yetu Tv Message Client is freely distributed under the MIT license.
