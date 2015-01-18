@@ -1,55 +1,94 @@
 describe('message-client', function () {
 
 	beforeEach(function(){
-		//enable action handler
-		yetu.onAnyActionDetected();
+		// clear action handlers
+		_yetu.clear();
 	});
 
 	it('should exist', function () {
-		expect(yetu).toBeDefined();
+		expect(_yetu).toBeDefined();
 	});
-	it('should have all method', function () {
-		expect(yetu.onAnyActionDetected).toBeDefined();
-		expect(yetu.onActionBack).toBeDefined();
-		expect(yetu.onActionUp).toBeDefined();
-		expect(yetu.onActionDown).toBeDefined();
-		expect(yetu.onActionLeft).toBeDefined();
-		expect(yetu.onActionRight).toBeDefined();
-		expect(yetu.onActionForward).toBeDefined();
-		expect(yetu.onActionPlay).toBeDefined();
-		expect(yetu.onActionEnter).toBeDefined();
-		expect(yetu.onActionMenu).toBeDefined();
-		expect(yetu.onActionRewind).toBeDefined();
-		expect(yetu.sendFeedItemIndex).toBeDefined();
-		expect(yetu.sendMessage).toBeDefined();
-		expect(yetu.sendQuit).toBeDefined();
+	
+	it('should have an valid UUID at start', function () {
+		expect(_yetu.id()).toBeDefined();
+		expect(_yetu.id().length).toEqual(36);
 	});
 
-	it('should send Message', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendMessage('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.messageTopic,'Test');
+	it('should not have handlers at start', function () {
+		expect(_yetu.size()).toEqual(0);
 	});
 
-	it('should send Quit', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendQuit('Test');
-		expect(local.sendData).toHaveBeenCalledWith(constants.quitTopic,'Test');
+	it('should bind handlers when call on', function () {
+		_yetu.on(_yetu.KEY.UP, function() {});
+		expect(_yetu.size()).toEqual(1);
 	});
 
-	it('should send Index', function () {
-		expect(local.sendData).toBeDefined();
-		spyOn(local,'sendData');
-		yetu.sendFeedItemIndex(1);
-		expect(local.sendData).toHaveBeenCalledWith(constants.indexTopic,{index:1});
+	it('should clear handlers when call clear', function () {
+		_yetu.on(_yetu.KEY.UP, function() {});
+		expect(_yetu.size()).toEqual(1);
+		_yetu.clear();
+		expect(_yetu.size()).toEqual(0);
+	});
+
+	it('should find the index for the action', function () {
+		
+		_yetu.on(_yetu.KEY.UP, function() {});
+		_yetu.on(_yetu.KEY.DOWN, function() {});
+		_yetu.on(_yetu.KEY.RIGHT, function() {});
+		
+		expect(_yetu.size()).toEqual(3);
+		expect(_yetu.indexOf(_yetu.wrap(_yetu.KEY.DOWN))).toEqual(1);
+	});
+
+	it('should call the callback for the action', function () {
+		
+		var cb = {callback: function() { }};
+		spyOn(cb, 'callback');
+
+		_yetu.on(_yetu.KEY.UP, cb.callback);
+		expect(_yetu.size()).toEqual(1);
+
+		_yetu.receive({}, _yetu.wrap(_yetu.KEY.UP), _yetu.CHANNEL);
+		expect(cb.callback).toHaveBeenCalled();
+	});
+
+	it('should call any callback for any action', function () {
+		
+		var cb = {callback: function() { }};
+		spyOn(cb, 'callback');
+
+		_yetu.any(cb.callback);
+		_yetu.receive({}, _yetu.wrap(_yetu.KEY.UP), _yetu.CHANNEL);
+		
+		expect(cb.callback).toHaveBeenCalled();
+	});
+
+	it('should send message topic', function () {
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.message('Test');
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.wrap(_yetu.MESSAGE_TOPIC));
+	});
+
+	it('should send quit topic', function () {
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.quit('Test');
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.wrap(_yetu.QUIT_TOPIC));
+	});
+
+	it('should send index topic', function () {
+		spyOn(flyer.wrapper,'broadcast');
+		_yetu.index(1);
+		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.wrap(_yetu.INDEX_TOPIC));
 	});
 
 	it('should broadcast message', function () {
 		expect(flyer.wrapper.broadcast).toBeDefined();
 		spyOn(flyer.wrapper,'broadcast');
-		local.sendData(constants.messageTopic, 'Test');
+		_yetu.message('Test');
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
+		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].data.message).toEqual('Test');
 	});
 });

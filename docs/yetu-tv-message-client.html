@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>yetu-tv-message-client.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>yetu-tv-message-client.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <pre><code>yetu-tv-message-client.js <span class="hljs-number">1.1</span><span class="hljs-number">.0</span>
+https:<span class="hljs-comment">//github.com/yetu/yetu-tv-message-client</span>
+(c) <span class="hljs-number">2015</span> Yetu AG
+Yetu Tv Message Client is freely distributed under the MIT license.
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(flyer, JSON)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h2 id="baseline-setup">Baseline setup</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Enable code to run in strict mode</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">	'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Establish the root object, <code>window</code> in the browser</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> root = <span class="hljs-keyword">this</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Save the previous value of the <code>_yetu</code> variable.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> previousYetu = root._yetu;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Create a safe reference to the Yetu object for use below.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> _yetu = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> </span>{
+		<span class="hljs-keyword">if</span> (obj <span class="hljs-keyword">instanceof</span> _yetu) <span class="hljs-keyword">return</span> obj;
+		<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> _yetu)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> _yetu(obj);
+		<span class="hljs-keyword">this</span>._wrapped = obj;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Export the Yetu object for the browser, add <code>_yetu</code> as a global object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	root._yetu = _yetu;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Current version.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.VERSION = <span class="hljs-string">'1.1.0'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Default channel for yetu communication</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.CHANNEL = <span class="hljs-string">'yetu'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Default topic for yetu Remote Control</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.CONTROL_TOPIC = <span class="hljs-string">'control'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Default topics to send information to yetu</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.READY_TOPIC = <span class="hljs-string">'action.is.ready'</span>;
+	_yetu.MESSAGE_TOPIC = <span class="hljs-string">'message.to.yetu'</span>;
+	_yetu.INDEX_TOPIC = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.index'</span>;
+	_yetu.QUIT_TOPIC = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.quit'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Default topics handle all actions</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.ALL_TOPICS = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.*'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Default topics to handle specific key of Yetu Remote Control</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.KEY = {};
+	_yetu.KEY.UP = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.up'</span>;
+	_yetu.KEY.DOWN = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.down'</span>;
+	_yetu.KEY.LEFT = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.left'</span>;
+	_yetu.KEY.RIGHT = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.right'</span>;
+	_yetu.KEY.ENTER = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.enter'</span>;
+	_yetu.KEY.BACK = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.back'</span>;
+	_yetu.KEY.MENU = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.menu'</span>;
+	_yetu.KEY.PLAY = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.play'</span>;
+	_yetu.KEY.REWIND = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.rewind'</span>;
+	_yetu.KEY.FORWARD = _yetu.CONTROL_TOPIC + <span class="hljs-string">'.forward'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Stores the handlers add through <code>on</code> method</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> handlers = [];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Stored the callback called when the any action happen</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> any = <span class="hljs-literal">null</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>This UUID will be concatenated to each topic, to allow
+targeting applications</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> id = <span class="hljs-literal">null</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>generate a 36 characters UUID (10.000+ year to collision)
+in compliance with the RFC4122</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> uuid = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
+		<span class="hljs-keyword">var</span> id = <span class="hljs-string">'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'</span>.replace(<span class="hljs-regexp">/[xy]/g</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(c)</span> </span>{
+			<span class="hljs-keyword">var</span> r = (d + <span class="hljs-built_in">Math</span>.random()*<span class="hljs-number">16</span>)%<span class="hljs-number">16</span> | <span class="hljs-number">0</span>;
+			d = <span class="hljs-built_in">Math</span>.floor(d/<span class="hljs-number">16</span>);
+			<span class="hljs-keyword">return</span> (c==<span class="hljs-string">'x'</span> ? r : (r&amp;<span class="hljs-number">0x3</span>|<span class="hljs-number">0x8</span>)).toString(<span class="hljs-number">16</span>);
+		});
+		<span class="hljs-keyword">return</span> id;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Broadcasts the <code>data</code> to the <code>topic</code> on the default channel </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> send = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(topic, data)</span> </span>{
+		
+		<span class="hljs-keyword">var</span> wrap = _yetu.wrap(topic);
+
+		<span class="hljs-keyword">try</span> {
+			
+			flyer.wrapper.broadcast({
+				channel: _yetu.CHANNEL,
+				topic: wrap,
+				data: {
+					title: (<span class="hljs-built_in">document</span>.title || <span class="hljs-literal">null</span>),
+					message: data
+				}
+			});
+			
+			<span class="hljs-keyword">return</span> {
+				sent : <span class="hljs-literal">true</span>,
+				message: <span class="hljs-string">"Message has been sent "</span> + <span class="hljs-built_in">JSON</span>.stringify(data)
+			};
+		}
+		<span class="hljs-keyword">catch</span>(e) {
+			<span class="hljs-keyword">return</span> {
+				sent : <span class="hljs-literal">false</span>,
+				message:  <span class="hljs-string">"Error on broadcasting the topic: "</span> + wrap,
+				error: e
+			};
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Notify the <code>READY_TOPIC</code> that
+the yetu object is fully loaded</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> ready = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> send(_yetu.READY_TOPIC, <span class="hljs-string">''</span>);
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>getter for the current application UUID</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.id = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> id;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>wrap the current topic to the current UUID</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.wrap = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(topic)</span> </span>{
+		<span class="hljs-keyword">return</span> topic + <span class="hljs-string">'.'</span> + id;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Send a <code>message</code> to the owner in the <code>MESSAGE_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.message = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+		<span class="hljs-keyword">return</span> send(_yetu.MESSAGE_TOPIC,  message || <span class="hljs-string">''</span>);
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Send the <code>index</code> to the <code>INDEX_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.index = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(index)</span> </span>{
+		<span class="hljs-keyword">return</span> send(_yetu.INDEX_TOPIC, {index : index || <span class="hljs-number">0</span>});
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Send the <code>message</code> to the <code>QUIT_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.quit = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(message)</span> </span>{
+		<span class="hljs-keyword">return</span> send(_yetu.QUIT_TOPIC, message || <span class="hljs-string">''</span>);
+	};
+
+	_yetu.any = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(callback)</span> </span>{
+		any = callback;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Push to the handlers the current topic and callback if the 
+current topic is already handled, change the callback</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.on = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(topic, callback)</span> </span>{
+		
+		<span class="hljs-keyword">var</span> wrap = _yetu.wrap(topic);
+		<span class="hljs-keyword">var</span> index = _yetu.indexOf(wrap);
+
+		<span class="hljs-keyword">if</span> (index &lt; <span class="hljs-number">0</span>) {
+			handlers.push({topic: wrap, callback: callback});
+		} <span class="hljs-keyword">else</span> {
+			handlers[index].callback = callback;
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Listent to any topic on the <code>CHANNEL</code> and direct the particular
+action to his handler attachted</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.receive = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, topic, channel)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>if has a callback to any action call it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">if</span> (any &amp;&amp; <span class="hljs-keyword">typeof</span> any == <span class="hljs-string">'function'</span> &amp;&amp; topic.indexOf(id) &gt;= <span class="hljs-number">0</span>) {
+				any();
+			}
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>check if the <code>handlers</code> object has a handler to the wrapped topic</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> index = _yetu.indexOf(topic);
+		<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span>) {
+			handlers[index].callback();
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Return the number of callbacks attached to the <code>handlers</code> object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.size = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> handlers.length;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Remove all callbacks including the one for any topics</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.clear = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		any = <span class="hljs-literal">null</span>;
+		handlers = [];
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>indexOf based on the browser implementation ECMA5
+focused on find the topic at the <code>handlers</code> object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.indexOf = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(topic, start)</span> </span>{
+		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = (start || <span class="hljs-number">0</span>), j = handlers.length; i &lt; j; i++) {
+			<span class="hljs-keyword">if</span> (handlers[i].topic === topic) { <span class="hljs-keyword">return</span> i; }
+		}
+		<span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Extracts the result from a wrapped and chained object.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.prototype.value = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._wrapped;
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>AMD registration happens at the end for compatibility with AMD loaders
+that may not enforce next-turn semantics on modules. Even though general
+practice for AMD registration is to be anonymous, underscore registers
+as a named module because, like jQuery, it is a base library that is
+popular enough to be bundled in a third party lib, but not be part of
+an AMD load request. Those cases could generate an error when an
+anonymous define() is called outside of a loader request.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
+		define(<span class="hljs-string">'underscore'</span>, [], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+			<span class="hljs-keyword">return</span> _yetu;
+		});
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>subscribe to all actions of the yetu channel</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	flyer.wrapper.subscribe({
+		channel: _yetu.CHANNEL,
+		topic: _yetu.ALL_TOPICS,
+		callback: _yetu.receive
+	});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>generate the UUID</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	id = uuid();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>Add a listener to window object, when the 
+event get triggered by the browser call
+the ready private function to broadcast the 
+message to the channel</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	root.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+		<span class="hljs-keyword">if</span>(_yetu) {
+			ready();
+		}
+	}, <span class="hljs-literal">false</span>);
+
+}.call(<span class="hljs-keyword">this</span>, flyer, <span class="hljs-built_in">JSON</span>));</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

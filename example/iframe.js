@@ -1,92 +1,103 @@
-/**
- @author Matthias Heyder, Elisa Hilprecht
-*/
-var changeBoxColor = function(boxNumber){
-	document.getElementsByClassName('iframe-changebox')[boxNumber].style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+var changeBoxColor = function(name) {
+	$('#' + name).css(
+		'background-color',
+		'#'+Math.floor(Math.random()*16777215).toString(16));
 };
 
 var changeIndex = function(direction){
 
+	var currentIndex = parseInt($('#index-value').text(), 10);
+	
 	if(direction && direction === 'up'){
-		document.getElementById('index-value').innerHTML++;
+		currentIndex--;
 	} else if(direction && direction === 'down') {
-		document.getElementById('index-value').innerHTML--;
+		currentIndex++;
 	}
+
+	if (currentIndex < 0) {
+		currentIndex = 0;
+	}
+
+	$('#index-value').text(currentIndex);
 };
 
-var myUpHandler = function(){
-	changeBoxColor(0);
+var upHandler = function(){
+	changeBoxColor('up');
 	changeIndex('up');
 };
-var myDownHandler = function(){
-	changeBoxColor(1);
+var downHandler = function(){
+	changeBoxColor('down');
 	changeIndex('down');
 };
-var myLeftHandler = function(){
-	changeBoxColor(2);
+var leftHandler = function(){
+	changeBoxColor('left');
 };
-var myRightHandler = function(){
-	changeBoxColor(3);
+var rightHandler = function(){
+	changeBoxColor('right');
 };
-var myEnterHandler = function(){
-	changeBoxColor(4)
+var enterHandler = function(){
+	changeBoxColor('enter');
 };
-var myBackHandler = function(){
-	changeBoxColor(5);
+var backHandler = function(){
+	changeBoxColor('back');
 };
-var myMenuHandler = function(){
-	changeBoxColor(6);
+var menuHandler = function(){
+	changeBoxColor('menu');
 };
-var myPlayHandler = function(){
-	changeBoxColor(7);
+var playHandler = function(){
+	changeBoxColor('play');
 };
-var myRewindHandler = function(){
-	changeBoxColor(8);
+var rewindHandler = function(){
+	changeBoxColor('rewind');
 };
-var myForwardHandler = function(){
-	changeBoxColor(9);
-};
-
-var myMessageSender = function(){
-    var text = document.getElementsByTagName("textarea")[0].value;
-
-    document.getElementsByTagName("textarea")[0].placeholder = "Your message: '" + text + "' has been sent to yetu.";
-    document.getElementsByTagName("textarea")[0].value = "";
-
-	yetu.sendMessage(text);
+var forwardHandler = function(){
+	changeBoxColor('forward');
 };
 
-var myQuitSender = function(){
-    yetu.sendQuit();
-};
+_yetu.any(function() {
 
-var myIndexSender = function(){
-    yetu.sendFeedItemIndex(+document.getElementById('index-value').innerHTML);
-};
+	_yetu.any(null);
 
-yetu.onAnyActionDetected = function(){
+	$('.uuid').text(_yetu.id());
 
-    yetu.onAnyActionDetected = function(){};
+	if(typeof $('#iframe-cover-overlay').length !== 'undefined') {
+		$('#iframe-cover-overlay').remove();
+	}
 
-		if(document.getElementById('iframe-cover-overlay')!==null){
-      document.getElementById('iframe-cover-overlay').remove();
-		}
+	_yetu.on(_yetu.KEY.UP, upHandler);
+	_yetu.on(_yetu.KEY.DOWN, downHandler);
+	_yetu.on(_yetu.KEY.LEFT, leftHandler);
+	_yetu.on(_yetu.KEY.RIGHT, rightHandler);
+	_yetu.on(_yetu.KEY.ENTER, enterHandler);
+	_yetu.on(_yetu.KEY.BACK, backHandler);
+	_yetu.on(_yetu.KEY.MENU, menuHandler);
+	_yetu.on(_yetu.KEY.PLAY, playHandler);
+	_yetu.on(_yetu.KEY.REWIND, rewindHandler);
+	_yetu.on(_yetu.KEY.FORWARD, forwardHandler);
+});
 
-    yetu.onActionUp = myUpHandler;
-    yetu.onActionDown = myDownHandler;
-    yetu.onActionLeft = myLeftHandler;
-    yetu.onActionRight = myRightHandler;
-    yetu.onActionEnter = myEnterHandler;
-    yetu.onActionBack = myBackHandler;
-		yetu.onActionMenu = myMenuHandler;
-    yetu.onActionPlay = myPlayHandler;
-    yetu.onActionRewind = myRewindHandler;
-    yetu.onActionForward = myForwardHandler;
-};
+$(window).ready(function(){
 
-window.onload = function(){
+	$('#iframe-cover-overlay').click(function(e) {
+		e.preventDefault();
+		e.stopImmediatePropagation();
+	});
 
-    document.getElementById('iframe-cover-overlay').onclick = function(e){
-        e.stopPropagation();
-    };
-};
+	$('#send-message').click(function(){
+
+		var text = $("textarea").val();
+
+		$("textarea").attr('placeholder', "Your message: '" + text + "' has been sent to yetu.");
+		$("textarea").val('');
+
+		_yetu.message(text);
+	});
+
+	$('#send-index').click(function() {
+		_yetu.index($('#index-value').text());
+	});
+
+	$('#send-quit').click(function() {
+		_yetu.quit();
+	});
+});

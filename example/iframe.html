@@ -10,59 +10,47 @@
         <meta http-equiv="pragma" content="no-cache" />
 
         <title>3rd party app inside an iframe</title>
-
-        <!--yetu library -->
-        <script src="../dist/yetu-tv-message-client-min.js"></script>
-
-        <!--3rd party custom JS-->
-        <script src="iframe.js"></script>
-
         <link rel="stylesheet" href="styles/all.css">
     </head>
     <body>
+        
         <div id="iframe-cover-overlay">
             <div class="locktext">Locked</div>
         </div>
-        <div class="iframe-changebox" id="up">
-            <h1>Up</h1>
+        
+        <div class="yetu-remote iframe-mode">
+            <a href="javascript:void(0)" class="iframe-changebox" id="up" rel="up">Up</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="down" rel="down">Down</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="left" rel="left">Left</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="right" rel="right">Right</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="enter" rel="enter">Enter</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="back" rel="back">Back</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="menu" rel="menu">Menu</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="play" rel="play">Play</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="rewind" rel="rewind">Rewind</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="forward" rel="forward">Forward</a>
         </div>
-        <div class="iframe-changebox" id="down">
-            <h1>Down</h1>
-        </div>
-        <div class="iframe-changebox" id="left">
-            <h1>Left</h1>
-        </div>
-        <div class="iframe-changebox" id="right">
-            <h1>Right</h1>
-        </div>
-        <div class="iframe-changebox" id="enter">
-            <h1>Enter</h1>
-        </div>
-        <div class="iframe-changebox" id="back">
-            <h1>Back</h1>
-        </div>
-				<div class="iframe-changebox" id="menu">
-            <h1>Menu</h1>
-        </div>
-        <div class="iframe-changebox" id="play">
-            <h1>Play</h1>
-        </div>
-        <div class="iframe-changebox" id="rewind">
-            <h1>Rewind</h1>
-        </div>
-        <div class="iframe-changebox" id="forward">
-            <h1>Forward</h1>
-        </div>
-        <div class="iframe-changebox" id="quit" onclick="myQuitSender();">
-            <h1>Send Quit</h1>
-        </div>
+
+        <h4 class="uuid">UUID</h4>
+
         <div class="iframe-messagebox">
-            <textarea placeholder="enter a custom message here"></textarea>
-            <button onclick="myMessageSender();">Submit message to yetu TV experience</button>
+            <textarea placeholder="enter a custom message to send to yetu TV experience"></textarea>
+            <button id="send-message">SEND</button>
         </div>
-				<div class="iframe-changebox" id="index" onclick="myIndexSender();">
-            <h1>Send Index</h1>
-						<h1 id="index-value">0</h1>
+		
+        <div class="iframe-feed-index" id="index">
+            <span>Current Feed Index</span>
+			<span id="index-value">0</span>
+            <button id="send-index">SEND INDEX</button>
         </div>
+
+        <button id="send-quit">SEND QUIT</button>
+
+        <script src="../dist/yetu-tv-message-client-min.js"></script>
+        <script src="../bower_components/jquery/jquery.min.js"></script>
+
+        <!--3rd party custom JS-->
+        <script src="iframe.js"></script>
+        
     </body>
 </html>

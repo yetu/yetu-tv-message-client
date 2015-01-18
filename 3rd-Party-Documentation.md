@@ -7,6 +7,10 @@ application at the homescreen.
 
 **Table of content**
 
+
+
+
+
 <!-- toc -->
 
 * [Steps needed to include the yetu-tv-message-client JavaScript library in your project:](#steps-needed-to-include-the-yetu-tv-message-client-javascript-library-in-your-project)
@@ -16,10 +20,13 @@ application at the homescreen.
 * [Namespace](#namespace)
   * [Callbacks](#callbacks)
   * [Operations](#operations)
-    * [sendMessage](#sendmessage)
-    * [sendQuit](#sendquit)
+    * [message](#message)
+    * [index](#index)
+    * [quit](#quit)
 
 <!-- toc stop -->
+
+
 
 ## Steps needed to include the yetu-tv-message-client JavaScript library in your project:
 
@@ -30,18 +37,30 @@ application at the homescreen.
   
 * Check if the library has been initialized:  
 ```    
-    if(yetu){  
+    if(_yetu){  
         // do stuff with our library  
     }  
 ```
 
 * Register for any number of callbacks, for example:  
 ``` 
-    yetu.onActionUp = function(){
+    _yetu.on(_yetu.KEY.UP, function(){
         console.log("yetu TV 'UP' message received!");
-    }
+    });
 ```
-    
+
+* Register to any call, for example:
+``` 
+    _yetu.any(function(){
+        console.log("yetu TV message received!");
+    });
+```
+
+* Clear all handlers, for example:
+``` 
+    _yetu.clear();
+```
+
 * You can also use the two methods to send messages to the yetu homescreen. If you send a plain message, inform the developers of the yetu homescreen to handle the messages. 
 
 In the example folder you can find an example, how the communication between the iFrame with your application and the 
@@ -65,30 +84,37 @@ Modify the the following call and execute it directly in the JS context or brows
 ```
     flyer.wrapper.broadcast({
       channel: 'yetu',
-      topic: 'control.left',//change this to your needs, i.e. 'control.right' or 'control.menu' etc.
+      topic: 'control.left.{UUID}', // you will need to handle the UUID bahavior... change this to your needs, i.e. 'control.right' or 'control.menu' etc.
       data: {}
     });
 ```
 
 ##Namespace
 
-yetu
+``` 
+  _yetu
+```
 
 ###Callbacks
 
-These callbacks are supported by the yetu-tv-message-client.
+These actions are supported by the yetu-tv-message-client method `on`.
 
-onAnyActionDetected
-onActionUp
-onActionDown
-onActionLeft
-onActionRight
-onActionEnter
-onActionBack
-onActionMenu
-onActionPlay
-onActionRewind
-onActionForward
+``` 
+  _yetu.on(_yetu.KEY.UP, function() {});
+  _yetu.on(_yetu.KEY.DOWN, function() {});
+  _yetu.on(_yetu.KEY.LEFT, function() {});
+  _yetu.on(_yetu.KEY.RIGHT, function() {});
+  _yetu.on(_yetu.KEY.ENTER, function() {});
+  _yetu.on(_yetu.KEY.BACK, function() {});
+  _yetu.on(_yetu.KEY.MENU, function() {});
+  _yetu.on(_yetu.KEY.PLAY, function() {});
+  _yetu.on(_yetu.KEY.REWIND, function() {});
+  _yetu.on(_yetu.KEY.FORWARD, function() {});
+```
+
+You can also handle any message that are sent:
+
+_yetu.any(function() {});
 
 These are all actions the yetu remote control currently can produce except:
 
@@ -101,12 +127,12 @@ These are all actions the yetu remote control currently can produce except:
 On the namespace you can execute the following functions.
 
 ```
-    yetu.sendMessage(message)
-    yetu.sendQuit(message)
-    yetu.sendFeedItemIndex(index)
+    _yetu.message(message)
+    _yetu.quit(message)
+    _yetu.index(index)
 ```
 
-####sendMessage
+####message
 
 sends a message text to the yetu TV experience
 
@@ -122,7 +148,7 @@ type: object
 description: returns an object with an boolean field sent, which is true, if it was successful and otherwise it
 is false. Furthermore there is a message field.
 
-####sendFeedItemIndex
+####index
 
 sends the index of the feed item (used from the feed apps to send the current index of the feed list items)
 
@@ -138,7 +164,7 @@ type: object
 description: returns an object with an boolean field sent, which is true, if it was successful and otherwise it
 is false. Furthermore there is a message field.
 
-####sendQuit
+####quit
 
 sends a quit signal with optional message text to the yetu TV experience
 
