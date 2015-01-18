@@ -30,6 +30,29 @@ describe('message-client', function () {
 		expect(_yetu.size()).toEqual(0);
 	});
 
+	it('should find the right index', function () {
+		
+		_yetu.on(_yetu.KEY.UP, function() {});
+		_yetu.on(_yetu.KEY.DOWN, function() {});
+		_yetu.on(_yetu.KEY.RIGHT, function() {});
+		
+		expect(_yetu.size()).toEqual(3);
+		expect(_yetu.indexOf(_yetu.wrap(_yetu.KEY.DOWN))).toEqual(1);
+	});
+
+	it('should call the right handler', function () {
+		
+		var cb = {callback: function() { }};
+
+		spyOn(cb, 'callback');
+
+		_yetu.on(_yetu.KEY.UP, cb.callback);
+		expect(_yetu.size()).toEqual(1);
+
+		_yetu.receive({}, _yetu.wrap(_yetu.KEY.UP), _yetu.CHANNEL);
+		expect(cb.callback).toHaveBeenCalled();
+	});
+
 	it('should send Message', function () {
 		spyOn(flyer.wrapper,'broadcast');
 		_yetu.message('Test');

@@ -154,7 +154,7 @@ Yetu Tv Message Client is freely distributed under the MIT license.
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	_yetu.VERSION = <span class="hljs-string">'0.2.1'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>	_yetu.VERSION = <span class="hljs-string">'1.1.0'</span>;</pre></div></div>
             
         </li>
         
@@ -498,6 +498,74 @@ current topic is already handled, change the callback</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
+              <p>Listent to any topic on the <code>CHANNEL</code> and direct the particular
+action to his handler attachted</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	_yetu.receive = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, topic, channel)</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>if has a callback to any action call it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">if</span> (any &amp;&amp; <span class="hljs-keyword">typeof</span> any == <span class="hljs-string">'function'</span> &amp;&amp; topic.indexOf(id) &gt;= <span class="hljs-number">0</span>) {
+				any();
+			}
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>check if the <code>handlers</code> object has a handler to the wrapped topic</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> index = _yetu.indexOf(topic);
+		<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span>) {
+			handlers[index].callback();
+		}
+	};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
               <p>Return the number of callbacks attached to the <code>handlers</code> object</p>
 
             </div>
@@ -509,11 +577,11 @@ current topic is already handled, change the callback</p>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Remove all callbacks including the one for any topics</p>
 
@@ -527,11 +595,11 @@ current topic is already handled, change the callback</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>indexOf based on the browser implementation ECMA5
 focused on find the topic at the <code>handlers</code> object</p>
@@ -548,11 +616,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>Extracts the result from a wrapped and chained object.</p>
 
@@ -565,11 +633,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>AMD registration happens at the end for compatibility with AMD loaders
 that may not enforce next-turn semantics on modules. Even though general
@@ -590,11 +658,11 @@ anonymous define() is called outside of a loader request.</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>subscribe to all actions of the yetu channel</p>
 
@@ -603,69 +671,17 @@ anonymous define() is called outside of a loader request.</p>
             <div class="content"><div class='highlight'><pre>	flyer.wrapper.subscribe({
 		channel: _yetu.CHANNEL,
 		topic: _yetu.ALL_TOPICS,
-		callback: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, topic, channel)</span> </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-33">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
-              </div>
-              <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">if</span>(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-34">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
-              </div>
-              <p>if has a callback to any action call it</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>				<span class="hljs-keyword">if</span> (any &amp;&amp; <span class="hljs-keyword">typeof</span> any == <span class="hljs-string">'function'</span> &amp;&amp; topic.indexOf(id) &gt;= <span class="hljs-number">0</span>) {
-					any();
-				}
-			}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-35">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
-              </div>
-              <p>check if the <code>handlers</code> object has a handler to the wrapped topic</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">var</span> index = _yetu.indexOf(topic);
-			<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span>) {
-				handlers[index].callback();
-			}
-		}
+		callback: _yetu.receive
 	});</pre></div></div>
             
         </li>
         
         
-        <li id="section-36">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>generate the UUID</p>
 
@@ -676,11 +692,11 @@ anonymous define() is called outside of a loader request.</p>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>Add a listener to window object, when the 
 event get triggered by the browser call

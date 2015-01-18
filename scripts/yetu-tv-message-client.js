@@ -159,6 +159,26 @@
 		}
 	};
 
+	// Listent to any topic on the `CHANNEL` and direct the particular
+	// action to his handler attachted
+	_yetu.receive = function(data, topic, channel) {
+
+		// if the current topic isn't the `QUIT_TOPIC`
+		if(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {
+
+			// if has a callback to any action call it
+			if (any && typeof any == 'function' && topic.indexOf(id) >= 0) {
+				any();
+			}
+		}
+
+		// check if the `handlers` object has a handler to the wrapped topic
+		var index = _yetu.indexOf(topic);
+		if (index >= 0) {
+			handlers[index].callback();
+		}
+	};
+
 	// Return the number of callbacks attached to the `handlers` object
 	_yetu.size = function() {
 		return handlers.length;
@@ -201,23 +221,7 @@
 	flyer.wrapper.subscribe({
 		channel: _yetu.CHANNEL,
 		topic: _yetu.ALL_TOPICS,
-		callback: function(data, topic, channel) {
-			
-			// if the current topic isn't the `QUIT_TOPIC`
-			if(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {
-
-				// if has a callback to any action call it
-				if (any && typeof any == 'function' && topic.indexOf(id) >= 0) {
-					any();
-				}
-			}
-
-			// check if the `handlers` object has a handler to the wrapped topic
-			var index = _yetu.indexOf(topic);
-			if (index >= 0) {
-				handlers[index].callback();
-			}
-		}
+		callback: _yetu.receive
 	});
 
 	// generate the UUID
