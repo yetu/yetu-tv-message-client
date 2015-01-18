@@ -30,7 +30,7 @@ describe('message-client', function () {
 		expect(_yetu.size()).toEqual(0);
 	});
 
-	it('should find the right index', function () {
+	it('should find the index for the action', function () {
 		
 		_yetu.on(_yetu.KEY.UP, function() {});
 		_yetu.on(_yetu.KEY.DOWN, function() {});
@@ -40,10 +40,9 @@ describe('message-client', function () {
 		expect(_yetu.indexOf(_yetu.wrap(_yetu.KEY.DOWN))).toEqual(1);
 	});
 
-	it('should call the right handler', function () {
+	it('should call the callback for the action', function () {
 		
 		var cb = {callback: function() { }};
-
 		spyOn(cb, 'callback');
 
 		_yetu.on(_yetu.KEY.UP, cb.callback);
@@ -53,21 +52,32 @@ describe('message-client', function () {
 		expect(cb.callback).toHaveBeenCalled();
 	});
 
-	it('should send Message', function () {
+	it('should call any callback for any action', function () {
+		
+		var cb = {callback: function() { }};
+		spyOn(cb, 'callback');
+
+		_yetu.any(cb.callback);
+		_yetu.receive({}, _yetu.wrap(_yetu.KEY.UP), _yetu.CHANNEL);
+		
+		expect(cb.callback).toHaveBeenCalled();
+	});
+
+	it('should send message topic', function () {
 		spyOn(flyer.wrapper,'broadcast');
 		_yetu.message('Test');
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
 		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.wrap(_yetu.MESSAGE_TOPIC));
 	});
 
-	it('should send Quit', function () {
+	it('should send quit topic', function () {
 		spyOn(flyer.wrapper,'broadcast');
 		_yetu.quit('Test');
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
 		expect(flyer.wrapper.broadcast.calls.mostRecent().args[0].topic).toEqual(_yetu.wrap(_yetu.QUIT_TOPIC));
 	});
 
-	it('should send Index', function () {
+	it('should send index topic', function () {
 		spyOn(flyer.wrapper,'broadcast');
 		_yetu.index(1);
 		expect(flyer.wrapper.broadcast).toHaveBeenCalled();
