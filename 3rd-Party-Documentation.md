@@ -9,6 +9,8 @@ application at the homescreen.
 
 
 
+
+
 <!-- toc -->
 
 * [Steps needed to include the yetu-tv-message-client JavaScript library in your project:](#steps-needed-to-include-the-yetu-tv-message-client-javascript-library-in-your-project)
@@ -23,6 +25,7 @@ application at the homescreen.
     * [quit](#quit)
 
 <!-- toc stop -->
+
 
 
 ## Steps needed to include the yetu-tv-message-client JavaScript library in your project:
@@ -88,22 +91,26 @@ Modify the the following call and execute it directly in the JS context or brows
 
 ##Namespace
 
-_yetu
+``` 
+  _yetu
+```
 
 ###Callbacks
 
-These actions are supported by the yetu-tv-message-client method 'on'.
+These actions are supported by the yetu-tv-message-client method `on`.
 
-_yetu.on(_yetu.KEY.UP, function() {});
-_yetu.on(_yetu.KEY.DOWN, function() {});
-_yetu.on(_yetu.KEY.LEFT, function() {});
-_yetu.on(_yetu.KEY.RIGHT, function() {});
-_yetu.on(_yetu.KEY.ENTER, function() {});
-_yetu.on(_yetu.KEY.BACK, function() {});
-_yetu.on(_yetu.KEY.MENU, function() {});
-_yetu.on(_yetu.KEY.PLAY, function() {});
-_yetu.on(_yetu.KEY.REWIND, function() {});
-_yetu.on(_yetu.KEY.FORWARD, function() {});
+``` 
+  _yetu.on(_yetu.KEY.UP, function() {});
+  _yetu.on(_yetu.KEY.DOWN, function() {});
+  _yetu.on(_yetu.KEY.LEFT, function() {});
+  _yetu.on(_yetu.KEY.RIGHT, function() {});
+  _yetu.on(_yetu.KEY.ENTER, function() {});
+  _yetu.on(_yetu.KEY.BACK, function() {});
+  _yetu.on(_yetu.KEY.MENU, function() {});
+  _yetu.on(_yetu.KEY.PLAY, function() {});
+  _yetu.on(_yetu.KEY.REWIND, function() {});
+  _yetu.on(_yetu.KEY.FORWARD, function() {});
+```
 
 You can also handle any message that are sent:
 
