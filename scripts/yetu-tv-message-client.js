@@ -28,7 +28,7 @@
 	root._yetu = _yetu;
 	
 	// Current version.
-	_yetu.VERSION = '0.2.1';
+	_yetu.VERSION = '1.1.0';
 
 	// Default channel for yetu communication
 	_yetu.CHANNEL = 'yetu';
