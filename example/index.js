@@ -1,52 +1,69 @@
 $(window).ready(function(){
 
-    'use strict';
+	'use strict';
 
-    flyer.wrapper.subscribe({
-        channel: 'yetu',
-        topic: 'message.to.yetu',
-        callback: function(data, topic, channel) {
-            alert("the app: '" + data.title + "' has sent you: '" + data.message + "'");
-        }
-    });
+	var ids = [];
+	var active = null;
 
-    flyer.wrapper.subscribe({
-        channel: 'yetu',
-        topic: 'action.is.ready',
-        callback: function(data, topic, channel) {
-            alert("the app: '" + data.title + "' is ready for use and sent you: '" + data.message + "'");
-        }
-    });
+	flyer.wrapper.subscribe({
+		channel: 'yetu',
+		topic: 'action.is.ready.*',
+		callback: function(data, topic, channel) {
+			
+			var _id = topic.substr(topic.lastIndexOf('.')+1);
+			if (ids.indexOf(_id) < 0) {
+			
+				ids.push(_id);
+				executeSubscribers(_id);
 
-    flyer.wrapper.subscribe({
-        channel: 'yetu',
-        topic: 'control.quit',
-        callback: function(data, topic, channel) {
-            alert("the app: '" + data.title + "' has just sent you a 'quit' signal");
-        }
-    });
+				$('#uuid-select').append('<option val="'+_id+'">'+_id+'</option>');
+				alert("the app: '" + data.title + "' identified as '" + _id + "' is ready for use and sent you: '" + data.message + "'");
+			}
+		}
+	});
 
-    flyer.wrapper.subscribe({
-        channel: 'yetu',
-        topic: 'control.index',
-        callback: function(data, topic, channel) {
-            alert("the app: '" + data.title + "' has just sent you the 'index' number " + data.message.index);
-        }
-    });
+	var executeSubscribers = function(id) {
 
-    $('.iframe-changebox').click(function(event){
+		flyer.wrapper.subscribe({
+			channel: 'yetu',
+			topic: 'message.to.yetu.' + id,
+			callback: function(data, topic, channel) {
+				alert("the app: '" + data.title + "' has sent you: '" + data.message + "'");
+			}
+		});
 
-        event.preventDefault();
-        event.stopImmediatePropagation();
+		flyer.wrapper.subscribe({
+			channel: 'yetu',
+			topic: 'control.quit.' + id,
+			callback: function(data, topic, channel) {
+				alert("the app: '" + data.title + "' has just sent you a 'quit' signal");
+			}
+		});
 
-        var key = $(this).attr('rel');
-        if (typeof key !== 'undefined') {
+		flyer.wrapper.subscribe({
+			channel: 'yetu',
+			topic: 'control.index.' + id,
+			callback: function(data, topic, channel) {
+				alert("the app: '" + data.title + "' has just sent you the 'index' number " + data.message.index);
+			}
+		});
+	};
 
-            flyer.wrapper.broadcast({
-                channel: 'yetu',
-                topic: 'control.'+key,
-                data: {}
-            });
-        }
-    });
+	$('.iframe-changebox').click(function(event){
+
+		event.preventDefault();
+		event.stopImmediatePropagation();
+
+		var key = $(this).attr('rel');
+		var uuid = $('#uuid-select').val();
+
+		if (typeof key !== 'undefined' && typeof uuid !== 'undefined') {
+
+			flyer.wrapper.broadcast({
+				channel: 'yetu',
+				topic: 'control.'+key+'.'+uuid,
+				data: {}
+			});
+		}
+	});
 });

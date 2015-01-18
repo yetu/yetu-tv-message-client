@@ -153,6 +153,14 @@ table {
     font-size: 11px;
 }
 
+#uuid-select {
+    position: absolute;
+    top: 360px;
+    width: 156px;
+    height: 28px;
+    left: 15px;
+}
+
 #send-quit {
     position: absolute;
     top: 230px;
