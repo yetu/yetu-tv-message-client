@@ -1,20 +1,74 @@
-.iframe-changebox{
-    width: 148px;
-    height: 148px;
-    border: 1px solid;
-    background-color: white;
-    position: absolute;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
-.iframe-messagebox{
-    width: 500px;
-    top: 550px;
+.iframe-changebox {
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: block;
+    text-indent: -9999px;
+}
+
+.iframe-changebox:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.iframe-messagebox, .iframe-feed-index {
+    width: 234px;
+    top: 40px;
     background-color: white;
     position: absolute;
     -webkit-touch-callout: none;
@@ -23,18 +77,32 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    left: 42%;
 }
 
 .iframe-messagebox > textarea {
-    width: 400px;
-    height: 200px;
-    font-size: 26px;
+    width: 100%;
+    height: 43px;
+    font-size: 13px;
 }
 
 .iframe-messagebox > button{
-    position: relative;
-    height: 40px;
-    top: 50px;
+    width: 100px;
+    display: block;
+    margin: 10px auto;
+}
+
+.iframe-feed-index {
+    top: 162px;
+    text-align: center;
+}
+
+.iframe-feed-index span {
+    font-size: 14px;
+}
+
+.iframe-feed-index span#index-value {
+    font-weight: bold;
 }
 
 #iframe-cover-overlay {
@@ -42,15 +110,15 @@
     height: 100%;
     position: absolute;
     z-index: 10;
-    opacity: 0.8;
+    opacity: 0.2;
     background-color: black;
 }
 
 .locktext{
-    font-size: 200px;
+    font-size: 90px;
     color: white;
-    top: 200px;
-    left: 100px;
+    top: 50%;
+    left: 50%;
     position: absolute;
     transform: rotateZ(-24deg);
     -webkit-touch-callout: none;
@@ -59,67 +127,82 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    margin-top: -45px;
+    margin-left: -135px;
 
 }
 
 #first-frame{
     overflow: hidden;
     position: absolute;
-    left: 1000px;
-    top: 283px;
-    width: 800px;
-    height: 900px;
+    left: 332px;
+    top: 50%;
+    width: 600px;
+    height: 600px;
+    margin-top: -300px;
 }
 
-h1{
-    text-align: center;
+#send-quit {
+    position: absolute;
+    top: 230px;
+    left: 302px;
+    width: 132px;
+    height: 29px;
 }
 
-#up{
-    top: 0;
-    left: 150px;
+.yetu-remote {
+    display: block;
+    width: 189px;
+    height: 560px;
+    background: url('../../yetu_remote.png') top left no-repeat;
+    position: absolute;
+    top: 50%;
+    margin-top: -280px;
+    left: 35px;
 }
-#down{
-    left: 150px;
-    top: 150px;
+
+.yetu-remote.iframe-mode .iframe-changebox {
+    opacity: 0.4;
+    cursor: pointer;
 }
-#left{
-    top: 150px;
-    left: 0;
+
+.yetu-remote #up{
+    top: 16px;
+    left: 70px;
 }
-#right{
-    top: 150px;
-    left: 300px;
+.yetu-remote #down{
+    left: 70px;
+    top: 126px;
 }
-#enter{
-    top: 150px;
-    left: 550px;
+.yetu-remote #left{
+    top: 70px;
+    left: 14px;
 }
-#back{
-    top: 0px;
-    left: 550px;
+.yetu-remote #right{
+    top: 70px;
+    right: 16px;
 }
-#menu{
-		top: 300px;
-    left: 550px;
+.yetu-remote #enter{
+    top: 71px;
+    left: 71px;
 }
-#play{
-    top: 350px;
-    left: 150px;
+.yetu-remote #back{
+    top: 183px;
+    left: 15px;
 }
-#rewind{
-    top: 350px;
-    left: 0px;
+.yetu-remote #menu{
+    top: 183px;
+    left: 71px;
 }
-#forward{
-    top: 350px;
-    left: 300px;
+.yetu-remote #play{
+    top: 239px;
+    left: 71px;
 }
-#quit{
-    top: 550px;
-    left: 550px;
+.yetu-remote #rewind{
+    top: 239px;
+    left: 14px;
 }
-#index{
-    top: 700px;
-		left: 550px;
+.yetu-remote #forward{
+    top: 239px;
+    right: 18px;
 }

@@ -10,45 +10,29 @@
         <meta http-equiv="pragma" content="no-cache" />
 
         <title>yetu TV message client example page</title>
-
-        <!--flyer.js -->
-        <script src="../bower_components/flyer/index.js"></script>
-        <!--demonstration JS-->
-        <script src="index.js"></script>
-
         <link rel="stylesheet" href="styles/all.css">
     </head>
     <body>
-        <div class="iframe-changebox" id="up" onclick="myMultiClickHandler('up');">
-            <h1>Up</h1>
+
+        <div class="yetu-remote">
+            <a href="javascript:void(0)" class="iframe-changebox" id="up" rel="up">Up</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="down" rel="down">Down</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="left" rel="left">Left</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="right" rel="right">Right</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="enter" rel="enter">Enter</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="back" rel="back">Back</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="menu" rel="menu">Menu</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="play" rel="play">Play</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="rewind" rel="rewind">Rewind</a>
+            <a href="javascript:void(0)" class="iframe-changebox" id="forward" rel="forward">Forward</a>
         </div>
-        <div class="iframe-changebox" id="down" onclick="myMultiClickHandler('down');">
-            <h1>Down</h1>
-        </div>
-        <div class="iframe-changebox" id="left" onclick="myMultiClickHandler('left');">
-            <h1>Left</h1>
-        </div>
-        <div class="iframe-changebox" id="right" onclick="myMultiClickHandler('right');">
-            <h1>Right</h1>
-        </div>
-        <div class="iframe-changebox" id="enter" onclick="myMultiClickHandler('enter');">
-            <h1>Enter</h1>
-        </div>
-        <div class="iframe-changebox" id="back" onclick="myMultiClickHandler('back');">
-            <h1>Back</h1>
-        </div>
-				<div class="iframe-changebox" id="menu" onclick="myMultiClickHandler('menu');">
-            <h1>Menu</h1>
-        </div>
-        <div class="iframe-changebox" id="play" onclick="myMultiClickHandler('play');">
-            <h1>Play</h1>
-        </div>
-        <div class="iframe-changebox" id="rewind" onclick="myMultiClickHandler('rewind');">
-            <h1>Rewind</h1>
-        </div>
-        <div class="iframe-changebox" id="forward" onclick="myMultiClickHandler('forward');">
-            <h1>Forward</h1>
-        </div>
+        
         <iframe id="first-frame" src="iframe.html"></iframe>
+
+        <script src="../bower_components/flyer/index.js"></script>
+        <script src="../bower_components/jquery/jquery.min.js"></script>
+        
+        <!--demonstration JS-->
+        <script src="index.js"></script>
     </body>
 </html>
