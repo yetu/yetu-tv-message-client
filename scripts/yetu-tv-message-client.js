@@ -64,13 +64,32 @@
 	// Stored the callback called when the any action happen
 	var any = null;
 
+	// This UUID will be concatenated to each topic, to allow
+	// targeting applications
+	var id = null;
+
+	// generate a 36 characters UUID (10.000+ year to collision)
+	// in compliance with the RFC4122
+	var uuid = function () {
+		var d = new Date().getTime();
+		var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+			var r = (d + Math.random()*16)%16 | 0;
+			d = Math.floor(d/16);
+			return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+		});
+		return id;
+	};
+
 	// Broadcasts the `data` to the `topic` on the default channel 
 	var send = function(topic, data) {
+		
+		var wrap = _yetu.wrap(topic);
+
 		try {
 			
 			flyer.wrapper.broadcast({
 				channel: _yetu.CHANNEL,
-				topic: topic,
+				topic: wrap,
 				data: {
 					title: (document.title || null),
 					message: data
@@ -85,7 +104,7 @@
 		catch(e) {
 			return {
 				sent : false,
-				message:  "Error on broadcasting the topic: " + topic,
+				message:  "Error on broadcasting the topic: " + wrap,
 				error: e
 			};
 		}
@@ -95,6 +114,16 @@
 	// the yetu object is fully loaded
 	var ready = function() {
 		return send(_yetu.READY_TOPIC, '');
+	};
+
+	// getter for the current application UUID
+	_yetu.id = function() {
+		return id;
+	};
+
+	// wrap the current topic to the current UUID
+	_yetu.wrap = function(topic) {
+		return topic + '.' + id;
 	};
 
 	// Send a `message` to the owner in the `MESSAGE_TOPIC`
@@ -116,13 +145,15 @@
 		any = callback;
 	};
 
-	// Push to the handlers the current action and callback if the 
-	// current action is already handled, change the callback
-	_yetu.on = function(action, callback) {
+	// Push to the handlers the current topic and callback if the 
+	// current topic is already handled, change the callback
+	_yetu.on = function(topic, callback) {
 		
-		var index = _yetu.indexOf(action);
+		var wrap = _yetu.wrap(topic);
+		var index = _yetu.indexOf(wrap);
+
 		if (index < 0) {
-			handlers.push({action: action, callback: callback});
+			handlers.push({topic: wrap, callback: callback});
 		} else {
 			handlers[index].callback = callback;
 		}
@@ -133,17 +164,17 @@
 		return handlers.length;
 	};
 
-	// Remove all callbacks including the one for any actions
+	// Remove all callbacks including the one for any topics
 	_yetu.clear = function() {
 		any = null;
-		_yetu.handlers = [];
+		handlers = [];
 	};
 
 	// indexOf based on the browser implementation ECMA5
-	// focused on find the action at the `handlers` object
-	_yetu.indexOf = function(action, start) {
+	// focused on find the topic at the `handlers` object
+	_yetu.indexOf = function(topic, start) {
 		for (var i = (start || 0), j = handlers.length; i < j; i++) {
-			if (handlers[i].action === action) { return i; }
+			if (handlers[i].topic === topic) { return i; }
 		}
 		return -1;
 	};
@@ -172,22 +203,27 @@
 		topic: _yetu.ALL_TOPICS,
 		callback: function(data, topic, channel) {
 			
+			var wrap = _yetu.wrap(topic);
+
 			// if the current topic isn't the `QUIT_TOPIC`
-			if(topic !== _yetu.QUIT_TOPIC) {
+			if(wrap !== _yetu.wrap(_yetu.QUIT_TOPIC)) {
 
 				// if has a callback to any action call it
 				if (any && typeof any == 'function') {
 					any();
 				}
+			}
 
-				// check if the `handlers` object has a handler to the topic
-				var index = _yetu.indexOf(topic);
-				if (index >= 0) {
-					handlers[index].callback();
-				}
+			// check if the `handlers` object has a handler to the wrapped topic
+			var index = _yetu.indexOf(wrap);
+			if (index >= 0) {
+				handlers[index].callback();
 			}
 		}
 	});
+
+	// generate the UUID
+	id = uuid();
 
 	// Add a listener to window object, when the 
 	// event get triggered by the browser call

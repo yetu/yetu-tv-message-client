@@ -11,6 +11,7 @@ module.exports = function (config) {
 		// list of files / patterns to load in the browser
 		files: [
 			'bower_components/flyer/index.js',
+			'bower_components/jquery/jquery.js',
 			'scripts/*.js',
 			'example/*.js',
 			'test/*.js'
@@ -19,7 +20,6 @@ module.exports = function (config) {
 		preprocessors: {
 			'scripts/*.js': 'coverage'
 		},
-
 
 		coverageReporter: {
 			reporters: [

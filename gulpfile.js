@@ -8,6 +8,7 @@ var gulp = require('gulp'),
 
 var testFiles = [
   'bower_components/flyer/index.js',
+  'bower_components/jquery/jquery.js',
   'scripts/*.js',
   'example/*.js',
   'test/*.js'
