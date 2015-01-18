@@ -4,6 +4,8 @@ This project contains the yetu-tv-message-client. The code is written as native 
 
 **Table of content**
 
+
+
 <!-- toc -->
 
 * [use the library as a third-party-application developer](#use-the-library-as-a-third-party-application-developer)
@@ -16,6 +18,7 @@ This project contains the yetu-tv-message-client. The code is written as native 
     * [update table of contents in .md](#update-table-of-contents-in-md)
 
 <!-- toc stop -->
+
 
 
 ## use the library as a third-party-application developer

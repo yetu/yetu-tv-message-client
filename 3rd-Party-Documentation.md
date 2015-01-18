@@ -7,6 +7,8 @@ application at the homescreen.
 
 **Table of content**
 
+
+
 <!-- toc -->
 
 * [Steps needed to include the yetu-tv-message-client JavaScript library in your project:](#steps-needed-to-include-the-yetu-tv-message-client-javascript-library-in-your-project)
@@ -16,10 +18,12 @@ application at the homescreen.
 * [Namespace](#namespace)
   * [Callbacks](#callbacks)
   * [Operations](#operations)
-    * [sendMessage](#sendmessage)
-    * [sendQuit](#sendquit)
+    * [message](#message)
+    * [index](#index)
+    * [quit](#quit)
 
 <!-- toc stop -->
+
 
 ## Steps needed to include the yetu-tv-message-client JavaScript library in your project:
 
