@@ -1,8 +1,8 @@
 # Introduction to the yetu-tv-message-client JavaScript library
 
-At the yetu tv homescreen your application will be opened in an iFrame. You can use this library to get events of the 
-remote control. It should be as well used for sending messages to the homescreen. Furthermore you **have** to 
-send in your application at some point a quit event to the main application. This would close your 
+At the yetu tv homescreen your application will be opened in an iFrame. You can use this library to get events of the
+remote control. It should be as well used for sending messages to the homescreen. Furthermore you **have** to
+send in your application at some point a quit event to the main application. This would close your
 application at the homescreen.
 
 **Table of content**
@@ -25,36 +25,36 @@ application at the homescreen.
 
 * Include our library in your markup, for example via:
 ```
-    <script src="dist/yetu-tv-message-client-min.js"></script> 
-```   
-  
-* Check if the library has been initialized:  
-```    
-    if(yetu){  
-        // do stuff with our library  
-    }  
+    <script src="dist/yetu-tv-message-client-min.js"></script>
 ```
 
-* Register for any number of callbacks, for example:  
-``` 
-    yetu.onActionUp = function(){
+* Check if the library has been initialized:
+```
+    if(yetu){
+        // do stuff with our library
+    }
+```
+
+* Register for any number of callbacks, for example:
+```
+    yetu.onActionUp = function(data, topic, channel){
         console.log("yetu TV 'UP' message received!");
     }
 ```
-    
-* You can also use the two methods to send messages to the yetu homescreen. If you send a plain message, inform the developers of the yetu homescreen to handle the messages. 
 
-In the example folder you can find an example, how the communication between the iFrame with your application and the 
-yetu homescreen works. Here you also see a lib folder, which includes flyer.js. 
+* You can also use the two methods to send messages to the yetu homescreen. If you send a plain message, inform the developers of the yetu homescreen to handle the messages.
 
-[Flyer.js](https://github.com/benzap/flyer.js) 
-is a library, which we use to realize the communication between the iFrame and the application. It is already 
-included in the yetu-tv-message-client-min.js. For the example, it is needed to realize the main application 
+In the example folder you can find an example, how the communication between the iFrame with your application and the
+yetu homescreen works. Here you also see a lib folder, which includes flyer.js.
+
+[Flyer.js](https://github.com/benzap/flyer.js)
+is a library, which we use to realize the communication between the iFrame and the application. It is already
+included in the yetu-tv-message-client-min.js. For the example, it is needed to realize the main application
 endpoint for the message channel.
 
 ##How to test your application after integration of the yetu-tv-message-client:
 
-###First opportunity 
+###First opportunity
 
 Use the index.html included in the example folder and point the src attribute of the iFrame to your application. Now you can click the buttons on the left of the screen to send messages.
 
@@ -144,9 +144,9 @@ sends a quit signal with optional message text to the yetu TV experience
 
 *Arguments*
 
-field: first  
-type: string  
-description: text message  
+field: first
+type: string
+description: text message
 
 *Response*
 

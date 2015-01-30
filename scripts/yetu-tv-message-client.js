@@ -70,7 +70,7 @@ flyer.wrapper.subscribe({
     callback: function(data, topic, channel){
         if(topic !== 'control.quit'){
 					if(yetu && yetu.onAnyActionDetected && typeof(yetu.onAnyActionDetected) === 'function'){
-						yetu.onAnyActionDetected();
+						yetu.onAnyActionDetected(data, topic, channel);
 					}
         }
     }
@@ -81,7 +81,7 @@ flyer.wrapper.subscribe({
     topic: 'control.up',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionUp && typeof(yetu.onActionUp) === 'function'){
-            yetu.onActionUp();
+            yetu.onActionUp(data, topic, channel);
         }
     }
 });
@@ -91,7 +91,7 @@ flyer.wrapper.subscribe({
     topic: 'control.down',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionDown && typeof(yetu.onActionDown) === 'function'){
-            yetu.onActionDown();
+            yetu.onActionDown(data, topic, channel);
         }
     }
 });
@@ -101,7 +101,7 @@ flyer.wrapper.subscribe({
     topic: 'control.left',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionLeft && typeof(yetu.onActionLeft) === 'function'){
-            yetu.onActionLeft();
+            yetu.onActionLeft(data, topic, channel);
         }
     }
 });
@@ -111,7 +111,7 @@ flyer.wrapper.subscribe({
     topic: 'control.right',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionRight && typeof(yetu.onActionRight) === 'function'){
-            yetu.onActionRight();
+            yetu.onActionRight(data, topic, channel);
         }
     }
 });
@@ -121,7 +121,7 @@ flyer.wrapper.subscribe({
     topic: 'control.enter',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionEnter && typeof(yetu.onActionEnter) === 'function'){
-            yetu.onActionEnter();
+            yetu.onActionEnter(data, topic, channel);
         }
     }
 });
@@ -131,7 +131,7 @@ flyer.wrapper.subscribe({
     topic: 'control.back',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionBack && typeof(yetu.onActionBack) === 'function'){
-            yetu.onActionBack();
+            yetu.onActionBack(data, topic, channel);
         }
     }
 });
@@ -141,7 +141,7 @@ flyer.wrapper.subscribe({
     topic: 'control.menu',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionMenu && typeof(yetu.onActionMenu) === 'function'){
-            yetu.onActionMenu();
+            yetu.onActionMenu(data, topic, channel);
         }
     }
 });
@@ -151,7 +151,7 @@ flyer.wrapper.subscribe({
     topic: 'control.play',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionPlay && typeof(yetu.onActionPlay) === 'function'){
-            yetu.onActionPlay();
+            yetu.onActionPlay(data, topic, channel);
         }
     }
 });
@@ -161,7 +161,7 @@ flyer.wrapper.subscribe({
     topic: 'control.rewind',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionRewind && typeof(yetu.onActionRewind) === 'function'){
-            yetu.onActionRewind();
+            yetu.onActionRewind(data, topic, channel);
         }
     }
 });
@@ -171,7 +171,7 @@ flyer.wrapper.subscribe({
     topic: 'control.forward',
     callback: function(data, topic, channel){
         if(yetu && yetu.onActionForward && typeof(yetu.onActionForward) === 'function'){
-            yetu.onActionForward();
+            yetu.onActionForward(data, topic, channel);
         }
     }
 });
