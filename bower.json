@@ -16,7 +16,8 @@
 	  "csscomb.json"
   ],
   "dependencies": {
-    "flyer": "https://github.com/benzap/flyer.js/releases/download/v1.0.4/flyer.js"
+    "flyer": "https://github.com/benzap/flyer.js/releases/download/v1.0.4/flyer.js",
+    "lil-uuid": "0.1.0"
   },
   "devDependencies": {
     "jquery": "1.9.1"

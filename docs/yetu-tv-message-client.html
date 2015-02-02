@@ -35,7 +35,7 @@ Yetu Tv Message Client is freely distributed under the MIT license.
             </div>
             
             <div class="content"><div class='highlight'><pre>
-(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(flyer, JSON)</span> </span>{</pre></div></div>
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(flyer, lil, JSON)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -299,19 +299,13 @@ targeting applications</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>generate a 36 characters UUID (10.000+ year to collision)
-in compliance with the RFC4122</p>
+              <p>this wrapper use 3d-party module to generate a 36 characters 
+UUID (10.000+ year to collision) in compliance with the RFC4122</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> uuid = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-		<span class="hljs-keyword">var</span> d = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
-		<span class="hljs-keyword">var</span> id = <span class="hljs-string">'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'</span>.replace(<span class="hljs-regexp">/[xy]/g</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(c)</span> </span>{
-			<span class="hljs-keyword">var</span> r = (d + <span class="hljs-built_in">Math</span>.random()*<span class="hljs-number">16</span>)%<span class="hljs-number">16</span> | <span class="hljs-number">0</span>;
-			d = <span class="hljs-built_in">Math</span>.floor(d/<span class="hljs-number">16</span>);
-			<span class="hljs-keyword">return</span> (c==<span class="hljs-string">'x'</span> ? r : (r&amp;<span class="hljs-number">0x3</span>|<span class="hljs-number">0x8</span>)).toString(<span class="hljs-number">16</span>);
-		});
-		<span class="hljs-keyword">return</span> id;
+		<span class="hljs-keyword">return</span> lil.uuid();
 	};</pre></div></div>
             
         </li>
@@ -641,10 +635,10 @@ focused on find the topic at the <code>handlers</code> object</p>
               </div>
               <p>AMD registration happens at the end for compatibility with AMD loaders
 that may not enforce next-turn semantics on modules. Even though general
-practice for AMD registration is to be anonymous, underscore registers
-as a named module because, like jQuery, it is a base library that is
-popular enough to be bundled in a third party lib, but not be part of
-an AMD load request. Those cases could generate an error when an
+practice for AMD registration is to be anonymous, yetu registers
+as a named module because, it is a base library that is can be bundled 
+in a third party lib, but not be part of an AMD load request. 
+Those cases could generate an error when an
 anonymous define() is called outside of a loader request.</p>
 
             </div>
@@ -711,7 +705,7 @@ message to the channel</p>
 		}
 	}, <span class="hljs-literal">false</span>);
 
-}.call(<span class="hljs-keyword">this</span>, flyer, <span class="hljs-built_in">JSON</span>));</pre></div></div>
+}.call(<span class="hljs-keyword">this</span>, flyer, lil, <span class="hljs-built_in">JSON</span>));</pre></div></div>
             
         </li>
         

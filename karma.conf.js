@@ -12,6 +12,7 @@ module.exports = function (config) {
 		files: [
 			'bower_components/flyer/index.js',
 			'bower_components/jquery/jquery.js',
+			'bower_components/lil-uuid/uuid.min.js',
 			'scripts/*.js',
 			'example/*.js',
 			'test/*.js'

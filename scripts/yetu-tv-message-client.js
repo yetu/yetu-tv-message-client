@@ -3,7 +3,7 @@
 //     (c) 2015 Yetu AG
 //     Yetu Tv Message Client is freely distributed under the MIT license.
 
-(function(flyer, JSON) {
+(function(flyer, lil, JSON) {
 
 	// Baseline setup
 	// --------------
@@ -68,16 +68,10 @@
 	// targeting applications
 	var id = null;
 
-	// generate a 36 characters UUID (10.000+ year to collision)
-	// in compliance with the RFC4122
+	// this wrapper use 3d-party module to generate a 36 characters 
+	// UUID (10.000+ year to collision) in compliance with the RFC4122
 	var uuid = function () {
-		var d = new Date().getTime();
-		var id = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-			var r = (d + Math.random()*16)%16 | 0;
-			d = Math.floor(d/16);
-			return (c=='x' ? r : (r&0x3|0x8)).toString(16);
-		});
-		return id;
+		return lil.uuid();
 	};
 
 	// Broadcasts the `data` to the `topic` on the default channel 
@@ -237,4 +231,4 @@
 		}
 	}, false);
 
-}.call(this, flyer, JSON));
+}.call(this, flyer, lil, JSON));

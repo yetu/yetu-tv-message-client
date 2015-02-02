@@ -6,6 +6,8 @@ This project contains the yetu-tv-message-client. The code is written as native 
 
 
 
+
+
 <!-- toc -->
 
 * [use the library as a third-party-application developer](#use-the-library-as-a-third-party-application-developer)
@@ -18,6 +20,7 @@ This project contains the yetu-tv-message-client. The code is written as native 
     * [update table of contents in .md](#update-table-of-contents-in-md)
 
 <!-- toc stop -->
+
 
 
 
@@ -70,6 +73,8 @@ First of all you have to install the node modules which are used in the gulpfile
  ```
  npm install
  ```
+
+ Due to the fact that npm will install and ```compile``` some packages, maybe you need to run with ```sudo```.
  
 ####run project
 

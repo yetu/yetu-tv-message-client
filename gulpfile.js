@@ -10,6 +10,7 @@ var gulp = require('gulp'),
 var testFiles = [
   'bower_components/flyer/index.js',
   'bower_components/jquery/jquery.js',
+  'bower_components/lil-uuid/uuid.min.js',
   'scripts/*.js',
   'example/*.js',
   'test/*.js'
@@ -37,7 +38,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('combine', function() {
-  gulp.src(['./bower_components/flyer/index.js', './scripts/yetu-tv-message-client.js'])
+  gulp.src(['./bower_components/flyer/index.js', './bower_components/lil-uuid/uuid.min.js', './scripts/yetu-tv-message-client.js'])
     .pipe(concat('yetu-tv-message-client-min.js'))
     .pipe(uglify({preserveComments: 'some'}))
     .pipe(gulp.dest('dist'));
