@@ -35,7 +35,9 @@ Yetu Tv Message Client is freely distributed under the MIT license.
             </div>
             
             <div class="content"><div class='highlight'><pre>
-(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(flyer, lil, JSON)</span> </span>{</pre></div></div>
+(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(root, factory)</span> </span>{
+	
+	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {</pre></div></div>
             
         </li>
         
@@ -46,9 +48,16 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <h2 id="baseline-setup">Baseline setup</h2>
+              <p>Export global even in AMD case in case this script 
+is loaded with others that may still expect a global _yetu.</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>		define([<span class="hljs-string">'flyer'</span>, <span class="hljs-string">'JSON'</span>, <span class="hljs-string">'lil-uuid'</span>, <span class="hljs-string">'exports'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(flyer, JSON, lil, exports)</span> </span>{
+			root._yetu = factory(root, exports, flyer, <span class="hljs-built_in">JSON</span>, lil);
+		});
+
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> exports !== <span class="hljs-string">'undefined'</span>) {</pre></div></div>
             
         </li>
         
@@ -59,8 +68,16 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              
+              <p>Next for Node.js or CommonJS. jQuery may not be needed as a module.</p>
+
             </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">var</span> flyer = <span class="hljs-built_in">require</span>(<span class="hljs-string">'flyer'</span>);
+		<span class="hljs-keyword">var</span> <span class="hljs-built_in">JSON</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'JSON'</span>);
+		<span class="hljs-keyword">var</span> lil = <span class="hljs-built_in">require</span>(<span class="hljs-string">'lil-uuid'</span>);
+		factory(root, exports, flyer, <span class="hljs-built_in">JSON</span>, lil);
+
+	} <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -71,11 +88,14 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Enable code to run in strict mode</p>
+              <p>Finally, as a browser global.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-pi">	'use strict'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>		root._yetu = factory(root, {}, root.flyer, root.JSON, root.lil);
+	}
+
+}(<span class="hljs-keyword">this</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(root, _yetu, flyer, JSON, lil)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -86,11 +106,9 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Establish the root object, <code>window</code> in the browser</p>
+              <h2 id="baseline-setup">Baseline setup</h2>
 
             </div>
-            
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> root = <span class="hljs-keyword">this</span>;</pre></div></div>
             
         </li>
         
@@ -101,11 +119,8 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Save the previous value of the <code>_yetu</code> variable.</p>
-
+              
             </div>
-            
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> previousYetu = root._yetu;</pre></div></div>
             
         </li>
         
@@ -116,15 +131,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>Create a safe reference to the Yetu object for use below.</p>
+              <p>Enable code to run in strict mode</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">var</span> _yetu = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(obj)</span> </span>{
-		<span class="hljs-keyword">if</span> (obj <span class="hljs-keyword">instanceof</span> _yetu) <span class="hljs-keyword">return</span> obj;
-		<span class="hljs-keyword">if</span> (!(<span class="hljs-keyword">this</span> <span class="hljs-keyword">instanceof</span> _yetu)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> _yetu(obj);
-		<span class="hljs-keyword">this</span>._wrapped = obj;
-	};</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">	'use strict'</span>;</pre></div></div>
             
         </li>
         
@@ -135,11 +146,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Export the Yetu object for the browser, add <code>_yetu</code> as a global object.</p>
+              <p>Current version.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	root._yetu = _yetu;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>	_yetu.VERSION = <span class="hljs-string">'1.1.0'</span>;</pre></div></div>
             
         </li>
         
@@ -150,11 +161,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>Current version.</p>
+              <p>Default channel for yetu communication</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	_yetu.VERSION = <span class="hljs-string">'1.1.0'</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>	_yetu.CHANNEL = <span class="hljs-string">'yetu'</span>;</pre></div></div>
             
         </li>
         
@@ -165,21 +176,6 @@ Yetu Tv Message Client is freely distributed under the MIT license.
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>Default channel for yetu communication</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>	_yetu.CHANNEL = <span class="hljs-string">'yetu'</span>;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-11">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
-              </div>
               <p>Default topic for yetu Remote Control</p>
 
             </div>
@@ -189,11 +185,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>Default topics to send information to yetu</p>
 
@@ -207,11 +203,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-13">
+        <li id="section-12">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
               <p>Default topics handle all actions</p>
 
@@ -222,11 +218,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-14">
+        <li id="section-13">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
               <p>Default topics to handle specific key of Yetu Remote Control</p>
 
@@ -247,11 +243,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-15">
+        <li id="section-14">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
               <p>Stores the handlers add through <code>on</code> method</p>
 
@@ -262,11 +258,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-16">
+        <li id="section-15">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>Stored the callback called when the any action happen</p>
 
@@ -277,11 +273,11 @@ Yetu Tv Message Client is freely distributed under the MIT license.
         </li>
         
         
-        <li id="section-17">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>This UUID will be concatenated to each topic, to allow
 targeting applications</p>
@@ -293,11 +289,11 @@ targeting applications</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>this wrapper use 3d-party module to generate a 36 characters 
 UUID (10.000+ year to collision) in compliance with the RFC4122</p>
@@ -311,11 +307,11 @@ UUID (10.000+ year to collision) in compliance with the RFC4122</p>
         </li>
         
         
-        <li id="section-19">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>Broadcasts the <code>data</code> to the <code>topic</code> on the default channel </p>
 
@@ -353,11 +349,11 @@ UUID (10.000+ year to collision) in compliance with the RFC4122</p>
         </li>
         
         
-        <li id="section-20">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>Notify the <code>READY_TOPIC</code> that
 the yetu object is fully loaded</p>
@@ -371,11 +367,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>getter for the current application UUID</p>
 
@@ -388,11 +384,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>wrap the current topic to the current UUID</p>
 
@@ -405,11 +401,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-23">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>Send a <code>message</code> to the owner in the <code>MESSAGE_TOPIC</code></p>
 
@@ -422,11 +418,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-24">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>Send the <code>index</code> to the <code>INDEX_TOPIC</code></p>
 
@@ -439,11 +435,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>Send the <code>message</code> to the <code>QUIT_TOPIC</code></p>
 
@@ -460,11 +456,11 @@ the yetu object is fully loaded</p>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>Push to the handlers the current topic and callback if the 
 current topic is already handled, change the callback</p>
@@ -486,11 +482,11 @@ current topic is already handled, change the callback</p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Listent to any topic on the <code>CHANNEL</code> and direct the particular
 action to his handler attachted</p>
@@ -502,11 +498,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
 
@@ -517,11 +513,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>if has a callback to any action call it</p>
 
@@ -535,11 +531,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>check if the <code>handlers</code> object has a handler to the wrapped topic</p>
 
@@ -554,11 +550,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p>Return the number of callbacks attached to the <code>handlers</code> object</p>
 
@@ -571,11 +567,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Remove all callbacks including the one for any topics</p>
 
@@ -589,11 +585,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>indexOf based on the browser implementation ECMA5
 focused on find the topic at the <code>handlers</code> object</p>
@@ -610,53 +606,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
-              </div>
-              <p>Extracts the result from a wrapped and chained object.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>	_yetu.prototype.value = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._wrapped;
-	};</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-35">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
-              </div>
-              <p>AMD registration happens at the end for compatibility with AMD loaders
-that may not enforce next-turn semantics on modules. Even though general
-practice for AMD registration is to be anonymous, yetu registers
-as a named module because, it is a base library that is can be bundled 
-in a third party lib, but not be part of an AMD load request. 
-Those cases could generate an error when an
-anonymous define() is called outside of a loader request.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
-		define(<span class="hljs-string">'underscore'</span>, [], <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
-			<span class="hljs-keyword">return</span> _yetu;
-		});
-	}</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-36">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>subscribe to all actions of the yetu channel</p>
 
@@ -671,11 +625,11 @@ anonymous define() is called outside of a loader request.</p>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>generate the UUID</p>
 
@@ -686,11 +640,11 @@ anonymous define() is called outside of a loader request.</p>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Add a listener to window object, when the 
 event get triggered by the browser call
@@ -699,13 +653,15 @@ message to the channel</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	root.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
 		<span class="hljs-keyword">if</span>(_yetu) {
 			ready();
 		}
 	}, <span class="hljs-literal">false</span>);
 
-}.call(<span class="hljs-keyword">this</span>, flyer, lil, <span class="hljs-built_in">JSON</span>));</pre></div></div>
+	<span class="hljs-keyword">return</span> {};
+
+}));</pre></div></div>
             
         </li>
         

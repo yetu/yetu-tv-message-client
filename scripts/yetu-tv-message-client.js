@@ -3,7 +3,30 @@
 //     (c) 2015 Yetu AG
 //     Yetu Tv Message Client is freely distributed under the MIT license.
 
-(function(flyer, lil, JSON) {
+(function(root, factory) {
+	
+	if (typeof define === 'function' && define.amd) {
+
+		// Export global even in AMD case in case this script 
+		// is loaded with others that may still expect a global _yetu.
+		define(['flyer', 'JSON', 'lil-uuid', 'exports'], function(flyer, JSON, lil, exports) {
+			root._yetu = factory(root, exports, flyer, JSON, lil);
+		});
+
+	} else if (typeof exports !== 'undefined') {
+
+		// Next for Node.js or CommonJS. jQuery may not be needed as a module.
+		var flyer = require('flyer');
+		var JSON = require('JSON');
+		var lil = require('lil-uuid');
+		factory(root, exports, flyer, JSON, lil);
+
+	} else {
+		// Finally, as a browser global.
+		root._yetu = factory(root, {}, flyer, JSON, lil);
+	}
+
+}(this, function (root, _yetu, flyer, JSON, lil) {
 
 	// Baseline setup
 	// --------------
@@ -11,22 +34,6 @@
 	// Enable code to run in strict mode
 	'use strict';
 
-	// Establish the root object, `window` in the browser
-	var root = this;
-
-	// Save the previous value of the `_yetu` variable.
-	var previousYetu = root._yetu;
-
-	// Create a safe reference to the Yetu object for use below.
-	var _yetu = function(obj) {
-		if (obj instanceof _yetu) return obj;
-		if (!(this instanceof _yetu)) return new _yetu(obj);
-		this._wrapped = obj;
-	};
-
-	// Export the Yetu object for the browser, add `_yetu` as a global object.
-	root._yetu = _yetu;
-	
 	// Current version.
 	_yetu.VERSION = '1.1.0';
 
@@ -193,24 +200,6 @@
 		return -1;
 	};
 
-	// Extracts the result from a wrapped and chained object.
-	_yetu.prototype.value = function() {
-		return this._wrapped;
-	};
-
-	// AMD registration happens at the end for compatibility with AMD loaders
-	// that may not enforce next-turn semantics on modules. Even though general
-	// practice for AMD registration is to be anonymous, yetu registers
-	// as a named module because, it is a base library that is can be bundled 
-	// in a third party lib, but not be part of an AMD load request. 
-	// Those cases could generate an error when an
-	// anonymous define() is called outside of a loader request.
-	if (typeof define === 'function' && define.amd) {
-		define('underscore', [], function() {
-			return _yetu;
-		});
-	}
-
 	// subscribe to all actions of the yetu channel
 	flyer.wrapper.subscribe({
 		channel: _yetu.CHANNEL,
@@ -225,10 +214,12 @@
 	// event get triggered by the browser call
 	// the ready private function to broadcast the 
 	// message to the channel
-	root.addEventListener('load', function() {
+	window.addEventListener('load', function() {
 		if(_yetu) {
 			ready();
 		}
 	}, false);
 
-}.call(this, flyer, lil, JSON));
+	return {};
+
+}));
