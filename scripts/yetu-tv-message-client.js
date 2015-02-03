@@ -23,7 +23,7 @@
 
 	} else {
 		// Finally, as a browser global.
-		root._yetu = factory(root, {}, flyer, JSON, lil);
+		root._yetu = factory(root, {}, root.flyer, root.JSON, root.lil);
 	}
 
 }(this, function (root, _yetu, flyer, JSON, lil) {
@@ -220,6 +220,6 @@
 		}
 	}, false);
 
-	return {};
+	return _yetu;
 
 }));
