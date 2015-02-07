@@ -11,6 +11,8 @@ application at the homescreen.
 
 
 
+
+
 <!-- toc -->
 
 * [Steps needed to include the yetu-tv-message-client JavaScript library in your project:](#steps-needed-to-include-the-yetu-tv-message-client-javascript-library-in-your-project)
@@ -25,6 +27,7 @@ application at the homescreen.
     * [quit](#quit)
 
 <!-- toc stop -->
+
 
 
 
@@ -54,6 +57,11 @@ application at the homescreen.
     _yetu.any(function(){
         console.log("yetu TV message received!");
     });
+```
+
+* Unsubscribe for a specific action, for example:  
+``` 
+    _yetu.off(_yetu.KEY.UP);
 ```
 
 * Clear all handlers, for example:
