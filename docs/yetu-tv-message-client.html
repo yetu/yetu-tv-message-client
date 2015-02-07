@@ -488,12 +488,20 @@ current topic is already handled, change the callback</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
-              <p>Listent to any topic on the <code>CHANNEL</code> and direct the particular
-action to his handler attachted</p>
+              <p>If the topic is on the array, use splice to remove it
+work as a unsubscriber to a topic</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>	_yetu.receive = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, topic, channel)</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>	_yetu.off = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(topic)</span> </span>{
+
+		<span class="hljs-keyword">var</span> wrap = _yetu.wrap(topic);
+		<span class="hljs-keyword">var</span> index = _yetu.indexOf(wrap);
+
+		<span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span>) {
+			handlers.splice(index, <span class="hljs-number">1</span>);
+		}
+	};</pre></div></div>
             
         </li>
         
@@ -504,11 +512,12 @@ action to his handler attachted</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
-              <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
+              <p>Listent to any topic on the <code>CHANNEL</code> and direct the particular
+action to his handler attachted</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>	_yetu.receive = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(data, topic, channel)</span> </span>{</pre></div></div>
             
         </li>
         
@@ -518,6 +527,21 @@ action to his handler attachted</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>if the current topic isn’t the <code>QUIT_TOPIC</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span>(topic !== _yetu.wrap(_yetu.QUIT_TOPIC)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>if has a callback to any action call it</p>
 
@@ -531,11 +555,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p>check if the <code>handlers</code> object has a handler to the wrapped topic</p>
 
@@ -550,11 +574,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Return the number of callbacks attached to the <code>handlers</code> object</p>
 
@@ -567,11 +591,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Remove all callbacks including the one for any topics</p>
 
@@ -585,11 +609,11 @@ action to his handler attachted</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>indexOf based on the browser implementation ECMA5
 focused on find the topic at the <code>handlers</code> object</p>
@@ -606,11 +630,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>subscribe to all actions of the yetu channel</p>
 
@@ -625,11 +649,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>generate the UUID</p>
 
@@ -640,11 +664,11 @@ focused on find the topic at the <code>handlers</code> object</p>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>Add a listener to window object, when the 
 event get triggered by the browser call

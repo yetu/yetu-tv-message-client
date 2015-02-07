@@ -23,6 +23,13 @@ describe('message-client', function () {
 		expect(_yetu.size()).toEqual(1);
 	});
 
+	it('should remove handlers when call off', function () {
+		_yetu.on(_yetu.KEY.UP, function() {});
+		expect(_yetu.size()).toEqual(1);
+		_yetu.off(_yetu.KEY.UP);
+		expect(_yetu.size()).toEqual(0);
+	});
+
 	it('should clear handlers when call clear', function () {
 		_yetu.on(_yetu.KEY.UP, function() {});
 		expect(_yetu.size()).toEqual(1);

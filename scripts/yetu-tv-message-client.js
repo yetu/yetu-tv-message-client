@@ -160,6 +160,18 @@
 		}
 	};
 
+	// If the topic is on the array, use splice to remove it
+	// work as a unsubscriber to a topic
+	_yetu.off = function(topic) {
+
+		var wrap = _yetu.wrap(topic);
+		var index = _yetu.indexOf(wrap);
+
+		if (index >= 0) {
+			handlers.splice(index, 1);
+		}
+	};
+
 	// Listent to any topic on the `CHANNEL` and direct the particular
 	// action to his handler attachted
 	_yetu.receive = function(data, topic, channel) {
