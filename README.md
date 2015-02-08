@@ -1,4 +1,5 @@
 # yetu-tv-message-client 
+[![bitHound Score](https://www.bithound.io/yetu/yetu-tv-message-client/badges/score.svg)](https://www.bithound.io/yetu/yetu-tv-message-client)
 
 This project contains the yetu-tv-message-client. The code is written as native JavaScript.
 
