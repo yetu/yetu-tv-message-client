@@ -95,4 +95,4 @@ If you want to create a new toc, add the following line on the place in the file
 * tag library in repository as version 1.0, so that external developer can include it in there bower.json
 * version as well the minified
 * send out the current version to yetu partners (first release)
-* build a new release version of yetu-client-templates and adapt clients using this project (youtube-app,yetu partners)
+* build a new release version of yetu-tv-message-client and adapt clients using this project (youtube-app,yetu partners)
