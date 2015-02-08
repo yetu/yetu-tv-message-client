@@ -15,6 +15,7 @@ This project contains the yetu-tv-message-client. The code is written as native 
     * [run project](#run-project)
     * [build project in dist](#build-project-in-dist)
     * [update table of contents in .md](#update-table-of-contents-in-md)
+* [next steps](#next-steps)
 
 <!-- toc stop -->
 
@@ -89,3 +90,9 @@ If you want to create a new toc, add the following line on the place in the file
 ```
 <!-- toc -->
 ```
+
+##next steps
+* tag library in repository as version 1.0, so that external developer can include it in there bower.json
+* version as well the minified
+* send out the current version to yetu partners (first release)
+* build a new release version of yetu-client-templates and adapt clients using this project (youtube-app,yetu partners)
