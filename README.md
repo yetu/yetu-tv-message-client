@@ -1,7 +1,7 @@
 # yetu-tv-message-client 
 [![bitHound Score](https://www.bithound.io/yetu/yetu-tv-message-client/badges/score.svg)](https://www.bithound.io/yetu/yetu-tv-message-client)
 
-This project contains the yetu-tv-message-client. The code is written as native JavaScript. It is currently in __beta-state__ (version 1.0.2). This means it is stable for third-party-developer to work with. Nevertheless we welcome every third-party-developer, who uses this app to extend or improve the API.
+This project contains the yetu-tv-message-client. The code is written as native JavaScript. It is currently in __beta-state__ (version 1.0.2). This means it is stable for third-party-developer to work with. Nevertheless we welcome every third-party-developer, who uses this app, to extend or improve the API.
 
 **Table of content**
 
