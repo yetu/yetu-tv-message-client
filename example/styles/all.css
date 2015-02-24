@@ -12,6 +12,22 @@
     user-select: none;
 }
 
+.message-box{
+    position: absolute;
+    top: 520px;
+}
+.message-button{
+    height: 40px;
+    width: 300px;
+    display: block;
+}
+#message-input{
+    margin-bottom: 10px;
+    width: 400px;
+    height: 200px;
+    font-size: 26px;
+}
+
 .iframe-messagebox{
     width: 500px;
     top: 550px;
@@ -68,7 +84,7 @@
     left: 1000px;
     top: 283px;
     width: 800px;
-    height: 900px;
+    height: 1000px;
 }
 
 h1{

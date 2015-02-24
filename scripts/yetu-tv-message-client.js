@@ -11,7 +11,8 @@ var constants = {
     quitTopic: 'control.quit',
     isReadyTopic: 'action.is.ready',
     indexTopic: 'control.index',
-    messageTopic: 'message.to.yetu'
+    messageTopic: 'message.to.yetu',
+		messageFromTopic: 'message.from.yetu'
 };
 
 var local = {};
@@ -174,4 +175,14 @@ flyer.wrapper.subscribe({
             yetu.onActionForward(data, topic, channel);
         }
     }
+});
+
+flyer.wrapper.subscribe({
+	channel: 'yetu',
+	topic: constants.messageFromTopic,
+	callback: function(data, topic, channel){
+		if(yetu && yetu.onReceiveMessage && typeof(yetu.onReceiveMessage) === 'function'){
+			yetu.onReceiveMessage(data, topic, channel);
+		}
+	}
 });

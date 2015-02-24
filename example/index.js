@@ -35,12 +35,24 @@ flyer.wrapper.subscribe({
 });
 
 var myMultiClickHandler = function(key){
-    console.log(key + " pressed");
+		if(key==="message"){
+			console.log(key + " send");
+			flyer.wrapper.broadcast({
+				channel: 'yetu',
+				topic: 'message.from.yetu',
+				data: {
+					message: document.getElementById('message-input').value
+				}
+			});
+		}
+		else{
+			console.log(key + " pressed");
+			flyer.wrapper.broadcast({
+				channel: 'yetu',
+				topic: 'control.'+key,
+				data: {}
+			});
+		}
 
-    flyer.wrapper.broadcast({
-      channel: 'yetu',
-      topic: 'control.'+key,
-      data: {}
-    });
 };
 
