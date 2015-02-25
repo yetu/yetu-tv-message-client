@@ -64,6 +64,13 @@ var myIndexSender = function(){
     yetu.sendFeedItemIndex(+document.getElementById('index-value').innerHTML);
 };
 
+var myMessageReceiver = function(data){
+	if(document.getElementById('iframe-cover-overlay')!==null){
+		document.getElementById('iframe-cover-overlay').remove();
+	}
+	alert("The following message was received from yetu TV Experience:\n"+data.message);
+};
+
 yetu.onAnyActionDetected = function(){
 
     yetu.onAnyActionDetected = function(){};
@@ -84,9 +91,12 @@ yetu.onAnyActionDetected = function(){
     yetu.onActionForward = myForwardHandler;
 };
 
-window.onload = function(){
+yetu.onReceiveMessage = myMessageReceiver;
 
-    document.getElementById('iframe-cover-overlay').onclick = function(e){
-        e.stopPropagation();
-    };
+window.onload = function(){
+		if(document.getElementById('iframe-cover-overlay') !== null){
+			document.getElementById('iframe-cover-overlay').onclick = function(e){
+					e.stopPropagation();
+			};
+		}
 };
