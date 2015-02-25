@@ -94,7 +94,9 @@ yetu.onAnyActionDetected = function(){
 yetu.onReceiveMessage = myMessageReceiver;
 
 window.onload = function(){
-    document.getElementById('iframe-cover-overlay').onclick = function(e){
-        e.stopPropagation();
-    };
+		if(document.getElementById('iframe-cover-overlay') !== null){
+			document.getElementById('iframe-cover-overlay').onclick = function(e){
+					e.stopPropagation();
+			};
+		}
 };
